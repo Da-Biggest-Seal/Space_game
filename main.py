@@ -85,4 +85,15 @@ while True:
     #vykresleni enemy
     enemy.vykresli_se()
 
+    #sestreleni enemaka
+    for strela_1 in strely_1[:]:
+        if enemy.checkni_kolizi_1(strela_1):
+            if strela_1 in strely_1:
+                strely_1.remove(strela_1)
+
+    for strela_2 in strely_2[:]:
+        if enemy.checkni_kolizi_2(strela_2):
+            if strela_2 in strely_2:
+                strely_2.remove(strela_2)
+
     pygame.display.flip()
