@@ -1,7 +1,7 @@
 import pygame
 pygame.init()
 
-class Movement:
+class Hrac:
     def __init__(self, pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving):
         self.pozice_hrace_x = pozice_hrace_x
         self.pozice_hrace_y = pozice_hrace_y
@@ -42,7 +42,7 @@ class Movement:
         klavesa = pygame.key.get_pressed()
 
         if klavesa[pygame.K_SPACE]:
-            strela_1 = pygame.Rect(self.pozice_hrace_x + 10, self.pozice_hrace_y, 3, 5)
+            strela_1 = pygame.Rect(self.pozice_hrace_x + 7, self.pozice_hrace_y, 3, 5)
             return strela_1
         
     def vystrel_2(self):
