@@ -11,6 +11,9 @@ from enemy import Enemy
 rozliseni_x = 800
 rozliseni_y = 600
 
+#okno
+okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
+
 #hrac
 pozice_hrace_x = (rozliseni_x / 2) - 15
 pozice_hrace_y = (rozliseni_y / 2) - 15
@@ -21,10 +24,16 @@ player_moving = pygame.image.load("player moving.png")
 cooldown = 15
 
 #enemak
-pozice_enemy_x = (rozliseni_x / 2) - 23
-pozice_enemy_y = (rozliseni_y / 4) - 23
+enemy_1 = []
 
-enemy_idle = pygame.image.load("Enemy_1_idle.png")
+pocet_LVL_1 = random.randint(4, 8)
+
+for i in range(pocet_LVL_1):
+    pozice_enemy_x = random.randint(0, int(rozliseni_x - 47))
+    pozice_enemy_y = random.randint(0, int((rozliseni_y / 4) - 47))
+    enemy_idle = pygame.image.load("Enemy_1_idle.png")
+
+    enemy_1.append(Enemy(pozice_enemy_x, pozice_enemy_y, rozliseni_x, rozliseni_y, okno, enemy_idle))
 
 #fps
 fps_casovac = pygame.time.Clock()
@@ -33,9 +42,6 @@ fps = 60
 #barvicky
 cerna = (30, 30, 30)
 cervena = (255, 0, 0)
-
-#okno
-okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
 
 #strely
 strely_1 = []
