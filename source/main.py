@@ -39,7 +39,7 @@ for i in range(pocet_LVL_1):
     enemy_1_x.append(pozice_enemy_x)
     enemy_1_y.append(pozice_enemy_y)
 
-#enemy_1 = [(enemy_1_x, enemy_1_y)]
+enemy_1 = [enemy_1_x, enemy_1_y]
 
 #fps
 fps_casovac = pygame.time.Clock()
@@ -99,26 +99,31 @@ while True:
 
     #sestreleni enemaka
     for strela_1 in strely_1[:]:
-        if enemy.checkni_kolizi_1(strela_1) == True:
+
+        hit, hit_index = enemy.checkni_kolizi_1(strela_1)
+
+        if hit:
             hit_point_1 += 1
             if strela_1 in strely_1:
                 strely_1.remove(strela_1)
 
-            #for enemy in enemy_1:
-            #    if enemy in enemy_1 and hit_point_1 >= 6:
-            #        enemy_1.remove(enemy)
-            #        hit_point_1 = 0
+            if hit_point_1 >= 6:
+                enemy_1[0].pop(hit_index)
+                enemy_1[1].pop(hit_index)
+                hit_point_1 = 0
 
-    for strela_2 in strely_2[:]:
-        if enemy.checkni_kolizi_2(strela_2) == True:
+    for strela_1 in strely_1[:]:
+
+        hit, hit_index = enemy.checkni_kolizi_1(strela_2)
+
+        if hit:
             hit_point_1 += 1
             if strela_2 in strely_2:
                 strely_2.remove(strela_2)
-                print(hit_point_1)
-            
-            #for enemy in enemy_1:
-            #    if enemy in enemy_1 and hit_point_1 >= 6:
-            #        enemy_1.remove(enemy)
-            #        hit_point_1 = 0
+
+            if hit_point_1 >= 6:
+                enemy_1[0].pop(hit_index)
+                enemy_1[1].pop(hit_index)
+                hit_point_1 = 0
 
     pygame.display.flip()
