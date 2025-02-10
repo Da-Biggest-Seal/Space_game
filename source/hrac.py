@@ -18,11 +18,11 @@ class Hrac:
 
         self.movement = False
 
-        if klavesa[pygame.K_w]:
+        if klavesa[pygame.K_w] and self.pozice_hrace_y > 0:
             self.movement = True
             self.pozice_hrace_y -= 4
 
-        if klavesa[pygame.K_s]:
+        if klavesa[pygame.K_s] and self.pozice_hrace_y < self.rozliseni_y - 30:
             self.movement = True
             self.pozice_hrace_y += 4
 

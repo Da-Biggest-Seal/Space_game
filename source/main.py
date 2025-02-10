@@ -6,6 +6,7 @@ pygame.init()
 #class import
 from hrac import Hrac
 from enemy import Enemy
+from pozadi import Pozadi
 
 #rozliseni
 rozliseni_x = 800
@@ -13,23 +14,24 @@ rozliseni_y = 600
 
 #okno
 okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
+pygame.display.set_caption("Space-Game")
 
 #pozadi
-bg_a = pygame.image.load("bg\\bg_a.png")
-bg_b = pygame.image.load("bg\\bg_b.png")
-bg_c = pygame.image.load("bg\\bg_c.png")
+bg_a = pygame.image.load("bg//bg_a.png")
+bg_b = pygame.image.load("bg//bg_b.png")
+bg_c = pygame.image.load("bg//bg_c.png")
 
 #hrac
 pozice_hrace_x = (rozliseni_x / 2) - 15
 pozice_hrace_y = (rozliseni_y / 2) - 15
 
-player_idle = pygame.image.load("player textury\\player idle.png")
-player_moving = pygame.image.load("player textury\\player moving.png")
+player_idle = pygame.image.load("player textury//player idle.png")
+player_moving = pygame.image.load("player textury//player moving.png")
 
 cooldown = 15
 
 #enemak
-enemy_idle = pygame.image.load("enemy textury\\enemy_1\\Enemy_1_idle.png")
+enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
 hit_point_1 = 0
 
 enemy_1_x = []
@@ -51,7 +53,7 @@ fps_casovac = pygame.time.Clock()
 fps = 60
 
 #barvicky
-cerna = (30, 30, 30)
+cerna = (0, 0, 0)
 cervena = (255, 0, 0)
 
 #strely
@@ -61,8 +63,7 @@ strely_2 = []
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy = Enemy(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
-
-cheat_console = input()
+pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y)
 
 #game loop
 while True:
@@ -73,7 +74,10 @@ while True:
 
     fps_casovac.tick(fps)
 
-    okno.blit(bg_c, (0, 0))
+    okno.fill(cerna)
+
+    pozadi.pozice_hrace_y = hrac.pozice_hrace_y
+    pozadi.update(okno)
 
     #sniz cooldowj
     hrac.sniz_cooldown()
