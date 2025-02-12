@@ -10,28 +10,34 @@ class Pozadi:
         self.vyska = bg_a.get_height()
         self.y_bg_a = -self.vyska
         self.y_bg_b = -self.vyska * 2
+        self.y_bg_c = 0
         self.pozice_hrace_y = pozice_hrace_y
         self.rozliseni_y = rozliseni_y
 
     def update(self, okno):
-        okno.blit(self.bg_c, (0, 0))
 
-        if self.pozice_hrace_y <= self.rozliseni_y * 0.2:
+        if self.pozice_hrace_y <= self.rozliseni_y - 31:
             self.y_bg_a += self.scroll_speed
             self.y_bg_b += self.scroll_speed
+            self.y_bg_c += self.scroll_speed
 
-        if self.pozice_hrace_y > (self.rozliseni_y - 20) * 0.8:
+        if self.pozice_hrace_y >= 0:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
+            self.y_bg_c -= self.scroll_speed
 
-        if self.y_bg_a >= 0:
+        if self.y_bg_a >= self.rozliseni_y:
             self.y_bg_a = self.y_bg_b - self.vyska
-        if self.y_bg_b >= 0:
+
+        if self.y_bg_b >= self.rozliseni_y:
             self.y_bg_b = self.y_bg_a - self.vyska
+
         if self.y_bg_a <= -self.vyska * 2:
             self.y_bg_a = self.y_bg_b + self.vyska
+
         if self.y_bg_b <= -self.vyska * 2:
             self.y_bg_b = self.y_bg_a + self.vyska
 
         okno.blit(self.bg_a, (0, self.y_bg_a))
         okno.blit(self.bg_b, (0, self.y_bg_b))
+        okno.blit(self.bg_c, (0, self.y_bg_c))
