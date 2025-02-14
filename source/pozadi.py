@@ -11,6 +11,7 @@ class Pozadi:
         self.y_bg_a = -self.vyska
         self.y_bg_b = -self.vyska * 2
         self.y_bg_c = 0
+        self.y_bg_a_2 = -self.vyska * 3
         self.pozice_hrace_y = pozice_hrace_y
         self.rozliseni_y = rozliseni_y
 
@@ -20,17 +21,22 @@ class Pozadi:
             self.y_bg_a += self.scroll_speed
             self.y_bg_b += self.scroll_speed
             self.y_bg_c += self.scroll_speed
+            self.y_bg_a_2 += self.scroll_speed
 
         if self.pozice_hrace_y >= 0:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
             self.y_bg_c -= self.scroll_speed
+            self.y_bg_a_2 -= self.scroll_speed
 
         if self.y_bg_a >= self.rozliseni_y:
             self.y_bg_a = self.y_bg_b - self.vyska
 
         if self.y_bg_b >= self.rozliseni_y:
             self.y_bg_b = self.y_bg_a - self.vyska
+
+        if self.y_bg_a_2 >= self.rozliseni_y * 2:
+            self.y_bg_a_2 = 
 
         if self.y_bg_a <= -self.vyska * 2:
             self.y_bg_a = self.y_bg_b + self.vyska
@@ -41,3 +47,4 @@ class Pozadi:
         okno.blit(self.bg_a, (0, self.y_bg_a))
         okno.blit(self.bg_b, (0, self.y_bg_b))
         okno.blit(self.bg_c, (0, self.y_bg_c))
+        okno.blit(self.bg_a, (0, self.y_bg_a_2))
