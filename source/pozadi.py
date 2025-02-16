@@ -11,7 +11,6 @@ class Pozadi:
         self.y_bg_a = -self.vyska
         self.y_bg_b = -self.vyska * 2
         self.y_bg_c = 0
-        self.y_bg_a_2 = -self.vyska * 3
         self.pozice_hrace_y = pozice_hrace_y
         self.rozliseni_y = rozliseni_y
 
@@ -34,9 +33,6 @@ class Pozadi:
 
         if self.y_bg_b >= self.rozliseni_y:
             self.y_bg_b = self.y_bg_a - self.vyska
-
-        if self.y_bg_a_2 >= self.rozliseni_y * 2:
-            self.y_bg_a_2 = 
 
         if self.y_bg_a <= -self.vyska * 2:
             self.y_bg_a = self.y_bg_b + self.vyska
