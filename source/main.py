@@ -110,31 +110,39 @@ while True:
 
     #sestreleni enemaka
     for strela_1 in strely_1[:]:
+            hit, hit_index = enemy.checkni_kolizi_1(strela_1)
 
-        hit, hit_index = enemy.checkni_kolizi_1(strela_1)
+            if hit:
+                if strela_1 in strely_1:
+                    strely_1.remove(strela_1)
 
-        if hit:
-            hit_point_1 += 1
-            if strela_1 in strely_1:
-                strely_1.remove(strela_1)
+                if hit_index is not None and hit_index < len(enemy_1[0]):
+                    enemy_1[0].pop(hit_index)
+                    enemy_1[1].pop(hit_index)
+                    enemy.hit_pointy.pop(hit_index)
 
-            if hit_point_1 >= 6:
-                enemy_1[0].pop(hit_index)
-                enemy_1[1].pop(hit_index)
-                hit_point_1 = 0
+                    enemy.Recty_1 = []
+                    for i in range(len(enemy_1[0])):
+                        enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
 
     for strela_2 in strely_2[:]:
 
-        hit, hit_index = enemy.checkni_kolizi_2(strela_2)
+            hit, hit_index = enemy.checkni_kolizi_2(strela_2)
 
-        if hit:
-            hit_point_1 += 1
-            if strela_2 in strely_2:
-                strely_2.remove(strela_2)
+            if hit:
+                if strela_2 in strely_2:
+                    strely_2.remove(strela_2)
 
-            if hit_point_1 >= 6:
-                enemy_1[0].pop(hit_index)
-                enemy_1[1].pop(hit_index)
-                hit_point_1 = 0
+                if hit_index is not None and hit_index < len(enemy_1[0]):
+                    enemy_1[0].pop(hit_index)
+                    enemy_1[1].pop(hit_index)
+                    enemy.hit_pointy.pop(hit_index)
+
+                    enemy.Recty_1 = []
+                    for i in range(len(enemy_1[0])):
+                        enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
+
+    #if len(enemy_1[0]) == 0:
+    #    pass
 
     pygame.display.flip()

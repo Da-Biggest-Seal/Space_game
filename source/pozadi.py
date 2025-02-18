@@ -15,18 +15,17 @@ class Pozadi:
         self.rozliseni_y = rozliseni_y
 
     def update(self, okno):
+        klavesa = pygame.key.get_pressed()
 
-        if self.pozice_hrace_y <= self.rozliseni_y - 31:
+        if klavesa[pygame.K_q]:
             self.y_bg_a += self.scroll_speed
             self.y_bg_b += self.scroll_speed
             self.y_bg_c += self.scroll_speed
-            self.y_bg_a_2 += self.scroll_speed
 
-        if self.pozice_hrace_y >= 0:
+        if klavesa[pygame.K_e] and self.y_bg_c >= 0:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
             self.y_bg_c -= self.scroll_speed
-            self.y_bg_a_2 -= self.scroll_speed
 
         if self.y_bg_a >= self.rozliseni_y:
             self.y_bg_a = self.y_bg_b - self.vyska
@@ -43,4 +42,3 @@ class Pozadi:
         okno.blit(self.bg_a, (0, self.y_bg_a))
         okno.blit(self.bg_b, (0, self.y_bg_b))
         okno.blit(self.bg_c, (0, self.y_bg_c))
-        okno.blit(self.bg_a, (0, self.y_bg_a_2))
