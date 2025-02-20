@@ -12,6 +12,9 @@ from pozadi import Pozadi
 rozliseni_x = 800
 rozliseni_y = 600
 
+#font
+font = pygame.font.Font("calibri-regular.ttf", 24)
+
 #okno
 okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
 pygame.display.set_caption("Space-Game")
@@ -41,7 +44,7 @@ pocet_LVL_1 = random.randint(4, 8)
 
 for i in range(pocet_LVL_1):
     pozice_enemy_x = random.randint(0, int(rozliseni_x - 47))
-    pozice_enemy_y = random.randint(0, int((rozliseni_y / 4) - 47))
+    pozice_enemy_y = random.randint(0, int((rozliseni_y / 4) - 47)) - 2000
 
     enemy_1_x.append(pozice_enemy_x)
     enemy_1_y.append(pozice_enemy_y)
@@ -55,6 +58,7 @@ fps = 60
 #barvicky
 cerna = (0, 0, 0)
 cervena = (255, 0, 0)
+bila = (255, 255, 255)
 
 #strely
 strely_1 = []
@@ -63,7 +67,7 @@ strely_2 = []
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy = Enemy(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
-pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y)
+pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, enemy_1)
 
 #game loop
 while True:
@@ -108,6 +112,9 @@ while True:
     #vykresleni enemy
     enemy.vykresli_se()
 
+    #pocitani ammo
+    pocet_ammo = hrac.pocet_naboju()
+
     #sestreleni enemaka
     for strela_1 in strely_1[:]:
             hit, hit_index = enemy.checkni_kolizi_1(strela_1)
@@ -142,7 +149,9 @@ while True:
                     for i in range(len(enemy_1[0])):
                         enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
 
-    #if len(enemy_1[0]) == 0:
-    #    pass
+    text_ammo = font.render("Počet nábojů: " + str(pocet_ammo), True, bila)
+    text_ammo_rect = text_ammo.get_rect(center= (90, (rozliseni_y - 20)))
+
+    okno.blit(text_ammo, text_ammo_rect)
 
     pygame.display.flip()

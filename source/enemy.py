@@ -5,7 +5,8 @@ pygame.init()
 class Enemy:
     def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, Pocet_LVL_1):
         self.enemy_1_x = enemy_1_x
-        self.enemy_1_y = enemy_1_y
+        self.enemy_1_y_1 = enemy_1_y
+        self.enemy_1_y = self.enemy_1_y_1
         self.rozliseni_x = rozliseni_x
         self.rozliseni_y = rozliseni_y
         self.okno = okno
@@ -17,6 +18,7 @@ class Enemy:
         self.zdravicko = 6
 
     def vykresli_se(self):
+
         self.Recty_1 = []
 
         if len(self.enemy_1_x) == 0:
@@ -36,7 +38,7 @@ class Enemy:
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None
-            return False, None
+        return False, None
     
     def checkni_kolizi_2(self, strela_2):
         if len(self.Recty_1) == 0:
@@ -48,4 +50,4 @@ class Enemy:
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None
-            return False, None
+        return False, None
