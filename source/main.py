@@ -33,6 +33,9 @@ player_moving = pygame.image.load("player textury//player moving.png")
 
 cooldown = 15
 
+#shop
+shop = pygame.image.load("Shop.png")
+
 #enemak
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
 hit_point_1 = 0
@@ -153,5 +156,6 @@ while True:
     text_ammo_rect = text_ammo.get_rect(center= (90, (rozliseni_y - 20)))
 
     okno.blit(text_ammo, text_ammo_rect)
+    okno.blit(shop, ((rozliseni_x -100), (rozliseni_y / 2)))
 
     pygame.display.flip()
