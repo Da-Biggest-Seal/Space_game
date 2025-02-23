@@ -12,6 +12,8 @@ class Enemy:
         self.enemy_idle = enemy_idle
         self.Pocet_LVL_1 = Pocet_LVL_1
         self.Recty_1 = []
+        self.pohyb_enemy = False
+        self.pohyb_enemy_timer = 180
 
         self.hit_pointy = [0] * len(self.enemy_1_x)
         self.zdravicko = 6
@@ -28,16 +30,27 @@ class Enemy:
             self.Recty_1.append(pygame.Rect(self.enemy_1_x[i], self.enemy_1_y[i], 47, 47))
 
         for i, y in enumerate(self.enemy_1_y):
+
             if y >= -47:
+                self.pohyb_enemy_timer -= 1
 
-                if self.enemy_1_x[i] >= self.rozliseni_x - 50:
-                    self.enemy_1_x[i] -=4
-                
-                elif self.enemy_1_x[i] <= 0:
-                    self.enemy_1_x[i] += 4
+                self.pohyb_enemy = False
 
-                elif self.enemy_1_x[i] - 4 >= 0 and self.enemy_1_x[i] + 4 <= self.rozliseni_x - 50:
+                if self.pohyb_enemy == False:
                     self.enemy_1_x[i] -= 4
+                    self.pohyb_enemy_timer -= 1
+
+                    if self.enemy_1_x[i] <= 0 and self.pohyb_enemy_timer == 0:
+                        self.pohyb_enemy = True
+                        self.pohyb_enemy_timer = 180
+
+                if self.pohyb_enemy == True:
+                    self.enemy_1_x[i] += 4
+                    self.pohyb_enemy_timer -= 1
+
+                    if self.enemy_1_x[i] <= 0 and self.pohyb_enemy_timer == 0:
+                        self.pohyb_enemy = False
+                        self.pohyb_enemy_timer = 180
 
     def checkni_kolizi_1(self, strela_1):
         if len(self.Recty_1) == 0:
