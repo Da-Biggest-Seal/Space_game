@@ -36,7 +36,7 @@ cooldown = 15
 #shop
 shop = pygame.image.load("Shop.png")
 
-#enemak
+#enemak 1
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
 hit_point_1 = 0
 

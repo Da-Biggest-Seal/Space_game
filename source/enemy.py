@@ -5,8 +5,7 @@ pygame.init()
 class Enemy:
     def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, Pocet_LVL_1):
         self.enemy_1_x = enemy_1_x
-        self.enemy_1_y_1 = enemy_1_y
-        self.enemy_1_y = self.enemy_1_y_1
+        self.enemy_1_y = enemy_1_y
         self.rozliseni_x = rozliseni_x
         self.rozliseni_y = rozliseni_y
         self.okno = okno
@@ -27,6 +26,18 @@ class Enemy:
         for i in range(len(self.enemy_1_x)):
             self.okno.blit(self.enemy_idle, (self.enemy_1_x[i], self.enemy_1_y[i]))
             self.Recty_1.append(pygame.Rect(self.enemy_1_x[i], self.enemy_1_y[i], 47, 47))
+
+        for i, y in enumerate(self.enemy_1_y):
+            if y >= -47:
+
+                if self.enemy_1_x[i] >= self.rozliseni_x - 50:
+                    self.enemy_1_x[i] -=4
+                
+                elif self.enemy_1_x[i] <= 0:
+                    self.enemy_1_x[i] += 4
+
+                elif self.enemy_1_x[i] - 4 >= 0 and self.enemy_1_x[i] + 4 <= self.rozliseni_x - 50:
+                    self.enemy_1_x[i] -= 4
 
     def checkni_kolizi_1(self, strela_1):
         if len(self.Recty_1) == 0:
