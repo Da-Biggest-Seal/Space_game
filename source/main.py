@@ -1,7 +1,7 @@
 import sys
 import random
 import pygame
-pygame.init()
+pygame.font.init()
 
 #class import
 from hrac import Hrac
@@ -33,12 +33,16 @@ player_moving = pygame.image.load("player textury//player moving.png")
 
 cooldown = 15
 
+money = 0
+
 #shop
 shop = pygame.image.load("Shop.png")
 
 #enemak 1
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
 hit_point_1 = 0
+
+enemy_1_kill = False
 
 enemy_1_x = []
 enemy_1_y = []
@@ -66,6 +70,10 @@ bila = (255, 255, 255)
 #strely
 strely_1 = []
 strely_2 = []
+
+#shop
+shop_x = rozliseni_x - 100
+shop_y = [(rozliseni_y / 2) - 2250, (rozliseni_y / 2) - 4250, (rozliseni_y / 2) - 6250]
 
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
@@ -130,6 +138,7 @@ while True:
                     enemy_1[0].pop(hit_index)
                     enemy_1[1].pop(hit_index)
                     enemy.hit_pointy.pop(hit_index)
+                    enemy_1_kill = True
 
                     enemy.Recty_1 = []
                     for i in range(len(enemy_1[0])):
@@ -147,15 +156,24 @@ while True:
                     enemy_1[0].pop(hit_index)
                     enemy_1[1].pop(hit_index)
                     enemy.hit_pointy.pop(hit_index)
+                    enemy_1_kill = True
 
                     enemy.Recty_1 = []
                     for i in range(len(enemy_1[0])):
                         enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
 
+    if enemy_1_kill == True:
+        money += 10
+        enemy_1_kill = False
+
     text_ammo = font.render("Počet nábojů: " + str(pocet_ammo), True, bila)
     text_ammo_rect = text_ammo.get_rect(center= (90, (rozliseni_y - 20)))
 
+    text_money = font.render("Finance: " + str(money), True, bila)
+    text_money_rect = text_money.get_rect(center= (((rozliseni_x / 4) * 3), (rozliseni_y - 20)))
+
     okno.blit(text_ammo, text_ammo_rect)
-    okno.blit(shop, ((rozliseni_x -100), (rozliseni_y / 2)))
+    okno.blit(text_money, text_money_rect)
+#    okno.blit(shop, ((rozliseni_x -100), (rozliseni_y / 2)))
 
     pygame.display.flip()

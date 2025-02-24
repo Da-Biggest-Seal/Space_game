@@ -12,7 +12,7 @@ class Hrac:
         self.player_moving = player_moving
         self.cooldown_1 = cooldown
         self.cooldown_2 = cooldown
-        self.pocet_ammo = 50
+        self.pocet_ammo = 100
 
     def pohni_se(self):
         klavesa = pygame.key.get_pressed()
