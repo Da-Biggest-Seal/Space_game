@@ -7,6 +7,7 @@ pygame.font.init()
 from hrac import Hrac
 from enemy import Enemy
 from pozadi import Pozadi
+from shop import Shop
 
 #rozliseni
 rozliseni_x = 800
@@ -34,9 +35,6 @@ player_moving = pygame.image.load("player textury//player moving.png")
 cooldown = 15
 
 money = 0
-
-#shop
-shop = pygame.image.load("Shop.png")
 
 #enemak 1
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
@@ -72,13 +70,16 @@ strely_1 = []
 strely_2 = []
 
 #shop
+shop = pygame.image.load("Shop.png")
+
 shop_x = rozliseni_x - 100
-shop_y = [(rozliseni_y / 2) - 2250, (rozliseni_y / 2) - 4250, (rozliseni_y / 2) - 6250]
+shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) - 6550]
 
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy = Enemy(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, enemy_1)
+shop = Shop(shop, shop_x, shop_y, okno)
 
 #game loop
 while True:
@@ -174,6 +175,6 @@ while True:
 
     okno.blit(text_ammo, text_ammo_rect)
     okno.blit(text_money, text_money_rect)
-#    okno.blit(shop, ((rozliseni_x -100), (rozliseni_y / 2)))
+    shop.vykresli_se()
 
     pygame.display.flip()
