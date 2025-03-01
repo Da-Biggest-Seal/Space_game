@@ -56,6 +56,9 @@ for i in range(pocet_LVL_1):
 
 enemy_1 = [enemy_1_x, enemy_1_y]
 
+enemy_strely_1 = []
+enemy_strely_2 = []
+
 #fps
 fps_casovac = pygame.time.Clock()
 fps = 60
@@ -98,6 +101,9 @@ while True:
     #sniz cooldowj
     hrac.sniz_cooldown()
 
+    #sniz enemy cooldown
+    enemy.sniz_enemy_cooldown()
+
     #vykresleni hrace
     hrac.pohni_se()
 
@@ -110,6 +116,15 @@ while True:
     if strela_2 != None:
         strely_2.append(strela_2)
 
+    #enemy strely
+    enemy_strela_1 = enemy.strelba_enemy_1()
+    if enemy_strela_1 != None:
+        enemy_strely_1.append(enemy_strela_1)
+
+    enemy_strela_2 = enemy.strelba_enemy_2()
+    if enemy_strela_2 != None:
+        enemy_strely_2.append(enemy_strela_2)
+
     #vykresleni strel
     for strela_1 in strely_1:
         if strela_1 != None:
@@ -120,6 +135,17 @@ while True:
         if strela_2 != None:
             strela_2[1] -= 10
             pygame.draw.ellipse(okno, cervena, strela_2)
+
+    #vykresleni enemy strel
+    for enemy_strela_1 in enemy_strely_1:
+        if enemy_strela_1 != None:
+            enemy_strela_1[1] += 10
+            pygame.draw.ellipse(okno, cervena, enemy_strela_1)
+
+    for enemy_strela_2 in enemy_strely_2:
+        if enemy_strela_2 != None:
+            enemy_strela_2[1] += 10
+            pygame.draw.ellipse(okno, cervena, enemy_strela_2)
 
     #vykresleni enemy
     enemy.vykresli_se()

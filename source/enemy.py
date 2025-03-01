@@ -13,6 +13,8 @@ class Enemy:
         self.Recty_1 = []
         self.pohyb_enemy = False
         self.direction = [1] * len(enemy_1_x)
+        self.enemy_cooldown_1 = 15
+        self.enemy_cooldown_2 = 15
 
         self.hit_pointy = [0] * len(self.enemy_1_x)
         self.zdravicko = 6
@@ -61,3 +63,27 @@ class Enemy:
                     return True, i
                 return True, None
         return False, None
+    
+    def sniz_enemy_cooldown(self):
+        for i in range(len(self.enemy_1_x)):
+            if self.enemy_1_y[i] >= -55:
+                self.enemy_cooldown_1 -= 1 / 2
+                self.enemy_cooldown_2 -= 1 / 2
+    
+    def strelba_enemy_1(self):
+        for i in range(len(self.enemy_1_y)):
+            if self.enemy_1_y[i] >= -47:
+
+                if self.enemy_cooldown_1 <= 0:
+                    enemy_strela_1 = pygame.Rect(self.enemy_1_x[i] + 11, self.enemy_1_y[i] + 24, 3, 5)
+                    self.enemy_cooldown_1 = 15
+                    return enemy_strela_1
+    
+    def strelba_enemy_2(self):
+        for i in range(len(self.enemy_1_y)):
+            if self.enemy_1_y[i] >= -47:
+
+                if self.enemy_cooldown_2 <= 0:
+                    enemy_strela_2 = pygame.Rect(self.enemy_1_x[i] + 35, self.enemy_1_y[i] + 24, 3, 5)
+                    self.enemy_cooldown_2 = 15
+                    return enemy_strela_2
