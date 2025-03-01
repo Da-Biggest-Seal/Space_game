@@ -37,9 +37,11 @@ class Hrac:
             
         if self.movement:
             self.okno.blit(self.player_moving, (self.pozice_hrace_x, self.pozice_hrace_y))
+            pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
 
         else:
             self.okno.blit(self.player_idle, (self.pozice_hrace_x, self.pozice_hrace_y))
+            pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
 
     def sniz_cooldown(self):
         self.cooldown_1 -= 1

@@ -14,7 +14,7 @@ rozliseni_x = 800
 rozliseni_y = 600
 
 #font
-font = pygame.font.Font("calibri-regular.ttf", 24)
+font = pygame.font.SysFont("Calibri", 24)
 
 #okno
 okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
@@ -117,13 +117,13 @@ while True:
         strely_2.append(strela_2)
 
     #enemy strely
-    enemy_strela_1 = enemy.strelba_enemy_1()
-    if enemy_strela_1 != None:
-        enemy_strely_1.append(enemy_strela_1)
+    enemy_strely_1_alfa = enemy.strelba_enemy_1()
+    if enemy_strely_1_alfa:
+        enemy_strely_1.extend(enemy_strely_1_alfa)
 
-    enemy_strela_2 = enemy.strelba_enemy_2()
-    if enemy_strela_2 != None:
-        enemy_strely_2.append(enemy_strela_2)
+    enemy_strely_2_alfa = enemy.strelba_enemy_2()
+    if enemy_strely_2_alfa:
+        enemy_strely_2.extend(enemy_strely_2_alfa)
 
     #vykresleni strel
     for strela_1 in strely_1:
@@ -165,6 +165,9 @@ while True:
                     enemy_1[0].pop(hit_index)
                     enemy_1[1].pop(hit_index)
                     enemy.hit_pointy.pop(hit_index)
+
+                    enemy.enemy_cooldown_1.pop(hit_index)
+                    enemy.enemy_cooldown_2.pop(hit_index)
                     enemy_1_kill = True
 
                     enemy.Recty_1 = []
@@ -183,6 +186,9 @@ while True:
                     enemy_1[0].pop(hit_index)
                     enemy_1[1].pop(hit_index)
                     enemy.hit_pointy.pop(hit_index)
+
+                    enemy.enemy_cooldown_1.pop(hit_index)
+                    enemy.enemy_cooldown_2.pop(hit_index)
                     enemy_1_kill = True
 
                     enemy.Recty_1 = []
