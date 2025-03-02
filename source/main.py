@@ -36,8 +36,10 @@ cooldown = 15
 
 money = 0
 
-#enemak 1
+#enemaci
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
+enemy_2_idle = pygame.image.load("enemy textury//enemy_2//enemy 2 idle.png")
+
 hit_point_1 = 0
 
 enemy_1_kill = False
@@ -45,7 +47,11 @@ enemy_1_kill = False
 enemy_1_x = []
 enemy_1_y = []
 
+enemy_2_x = []
+enemy_2_y = []
+
 pocet_LVL_1 = random.randint(4, 8)
+pocet_LVL_2 = random.randint(2, 4)
 
 for i in range(pocet_LVL_1):
     pozice_enemy_x = random.randint(0, int(rozliseni_x - 47))
@@ -54,7 +60,15 @@ for i in range(pocet_LVL_1):
     enemy_1_x.append(pozice_enemy_x)
     enemy_1_y.append(pozice_enemy_y)
 
+for i in range(pocet_LVL_2):
+    pozice_enemy_2_x = random.randint(0, int(rozliseni_x - 65))
+    pozice_enemy_2_y = random.randint(0, int(rozliseni_y / 8)) - 4000
+
+    enemy_2_x.append(pozice_enemy_2_x)
+    enemy_2_y.append(pozice_enemy_2_y)
+
 enemy_1 = [enemy_1_x, enemy_1_y]
+enemy_2 = [enemy_2_x, enemy_2_y]
 
 enemy_strely_1 = []
 enemy_strely_2 = []
