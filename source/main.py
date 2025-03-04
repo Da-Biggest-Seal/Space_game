@@ -36,6 +36,8 @@ cooldown = 15
 
 money = 0
 
+hrac_hity = 0
+
 #enemaci
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
 enemy_2_idle = pygame.image.load("enemy textury//enemy_2//enemy 2 idle.png")
@@ -112,7 +114,7 @@ while True:
     pozadi.pozice_hrace_y = hrac.pozice_hrace_y
     pozadi.update(okno)
 
-    #sniz cooldowj
+    #sniz cooldown
     hrac.sniz_cooldown()
 
     #sniz enemy cooldown
@@ -138,6 +140,16 @@ while True:
     enemy_strely_2_alfa = enemy.strelba_enemy_2()
     if enemy_strely_2_alfa:
         enemy_strely_2.extend(enemy_strely_2_alfa)
+
+    try:
+        for i in enemy_strely_1:
+            enemy_strela_1 = i
+
+        for i in enemy_strely_2:
+            enemy_strela_2 = i
+
+    except:
+        pass
 
     #vykresleni strel
     for strela_1 in strely_1:
@@ -208,6 +220,28 @@ while True:
                     enemy.Recty_1 = []
                     for i in range(len(enemy_1[0])):
                         enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
+
+    #hity hrace
+    for i in range(len(enemy_strely_1)):
+        hrac_hit_Leva = hrac.checkni_kolizi_1(enemy_strela_1)
+
+    for i in range(len(enemy_strely_2)):
+        hrac_hit_Prava = hrac.checkni_kolizi_2(enemy_strela_2)
+
+    for i in enemy_strely_1:
+        if hrac_hit_Leva:
+            hrac_hity += 1
+            enemy_strely_1.remove(enemy_strely_1[i])
+
+    for enemy_strela_2 in enemy_strely_2:
+        if hrac_hit_Prava:
+            hrac_hity += 1
+            enemy_strely_2.remove(enemy_strela_2)
+
+    if hrac_hity >= 20:
+        kill_text = font.render("You died!", True, bila)
+        kill_text_rect = kill_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
+        okno.blit(kill_text, kill_text_rect)
 
     if enemy_1_kill == True:
         money += 10
