@@ -13,8 +13,6 @@ class Hrac:
         self.cooldown_1 = cooldown
         self.cooldown_2 = cooldown
         self.pocet_ammo = 100
-        self.strela_1 = pygame.Rect(self.pozice_hrace_x + 7, self.pozice_hrace_y, 3, 5)
-        self.strela_2 = pygame.Rect(self.pozice_hrace_x + 21, self.pozice_hrace_y, 3, 5)
 
     def pohni_se(self):
         klavesa = pygame.key.get_pressed()
@@ -39,11 +37,9 @@ class Hrac:
             
         if self.movement:
             self.okno.blit(self.player_moving, (self.pozice_hrace_x, self.pozice_hrace_y))
-            pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
 
         else:
             self.okno.blit(self.player_idle, (self.pozice_hrace_x, self.pozice_hrace_y))
-            pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
 
     def sniz_cooldown(self):
         self.cooldown_1 -= 1
@@ -53,25 +49,27 @@ class Hrac:
         klavesa = pygame.key.get_pressed()
 
         if klavesa[pygame.K_SPACE] and self.cooldown_1 <= 0 and self.pocet_ammo > 0:
-            self.strela_1
+            strela_1 = pygame.Rect(self.pozice_hrace_x + 7, self.pozice_hrace_y, 3, 5)
             self.cooldown_1 = 15
             self.pocet_ammo -= 1
-            return self.strela_1
+            return strela_1
         
     def vystrel_2(self):
         klavesa = pygame.key.get_pressed()
 
         if klavesa[pygame.K_SPACE] and self.cooldown_2 <= 0 and self.pocet_ammo > 0:
-            self.strela_2
+            strela_2 = pygame.Rect(self.pozice_hrace_x + 21, self.pozice_hrace_y, 3, 5)
             self.cooldown_2 = 15
             self.pocet_ammo -= 1
-            return self.strela_2
+            return strela_2
         
     def pocet_naboju(self):
         return self.pocet_ammo
     
     def checkni_kolizi_1(self, enemy_strela_1):
-        return self.strela_1.colliderect(enemy_strela_1[0], enemy_strela_1[1], enemy_strela_1[2], enemy_strela_1[3])
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_strela_1)
     
     def checkni_kolizi_2(self, enemy_strela_2):
-        return self.strela_1.colliderect(enemy_strela_2[0], enemy_strela_2[1], enemy_strela_2[2], enemy_strela_2[3])
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_strela_2)

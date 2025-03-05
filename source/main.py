@@ -37,6 +37,7 @@ cooldown = 15
 money = 0
 
 hrac_hity = 0
+hrac_max_hity = 20
 
 #enemaci
 enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
@@ -222,39 +223,55 @@ while True:
                         enemy.Recty_1.append(pygame.Rect(enemy_1[0][i], enemy_1[1][i], 47, 47))
 
     #hity hrace
-    for i in range(len(enemy_strely_1)):
-        hrac_hit_Leva = hrac.checkni_kolizi_1(enemy_strela_1)
+    enemy_strely_1_trefa = []
+    enemy_strely_2_trefa = []
 
-    for i in range(len(enemy_strely_2)):
-        hrac_hit_Prava = hrac.checkni_kolizi_2(enemy_strela_2)
-
-    for i in enemy_strely_1:
-        if hrac_hit_Leva:
+    for i, enemy_strela_1_trefa in enumerate(enemy_strely_1):
+        if hrac.checkni_kolizi_1(enemy_strela_1_trefa):
+            enemy_strely_1_trefa.append(i)
             hrac_hity += 1
-            enemy_strely_1.remove(enemy_strely_1[i])
 
-    for enemy_strela_2 in enemy_strely_2:
-        if hrac_hit_Prava:
+    for i, enemy_strela_2_trefa in enumerate(enemy_strely_2):
+        if hrac.checkni_kolizi_2(enemy_strela_2_trefa):
+            enemy_strely_2_trefa.append(i)
             hrac_hity += 1
-            enemy_strely_2.remove(enemy_strela_2)
 
-    if hrac_hity >= 20:
-        kill_text = font.render("You died!", True, bila)
-        kill_text_rect = kill_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
-        okno.blit(kill_text, kill_text_rect)
+    for i in sorted(enemy_strely_1_trefa, reverse=True):
+        if i < len(enemy_strely_1):
+            enemy_strely_1.pop(i)
 
+    for i in sorted(enemy_strely_2_trefa, reverse=True):
+        if i < len(enemy_strely_2):
+            enemy_strely_2.pop(i)
+
+    hp = 100 - ((hrac_hity / hrac_max_hity) * 100)
+
+    #pricteni penez za kill
     if enemy_1_kill == True:
         money += 10
         enemy_1_kill = False
 
+    #info hud
     text_ammo = font.render("Počet nábojů: " + str(pocet_ammo), True, bila)
     text_ammo_rect = text_ammo.get_rect(center= (90, (rozliseni_y - 20)))
 
     text_money = font.render("Finance: " + str(money), True, bila)
     text_money_rect = text_money.get_rect(center= (((rozliseni_x / 4) * 3), (rozliseni_y - 20)))
 
+    text_hp = font.render("HP: " + str(hp) + "%", True, bila)
+    text_hp_rect = text_hp.get_rect(center= ((rozliseni_x / 2), (rozliseni_y - 20)))
+
     okno.blit(text_ammo, text_ammo_rect)
     okno.blit(text_money, text_money_rect)
+    okno.blit(text_hp, text_hp_rect)
+
+    #shop
     shop.vykresli_se()
+
+    if hrac_hity >= hrac_max_hity:
+        okno.fill(cerna)
+        kill_text = font.render("You died!", True, bila)
+        kill_text_rect = kill_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
+        okno.blit(kill_text, kill_text_rect)
 
     pygame.display.flip()
