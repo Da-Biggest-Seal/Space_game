@@ -1,14 +1,14 @@
 import pygame
 pygame.init()
 
-class Enemy:
-    def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, Pocet_LVL_1):
+class Enemy_1:
+    def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_1_idle, Pocet_LVL_1):
         self.enemy_1_x = enemy_1_x
         self.enemy_1_y = enemy_1_y
         self.rozliseni_x = rozliseni_x
         self.rozliseni_y = rozliseni_y
         self.okno = okno
-        self.enemy_idle = enemy_idle
+        self.enemy_1_idle = enemy_1_idle
         self.Pocet_LVL_1 = Pocet_LVL_1
         self.Recty_1 = []
         self.direction = [1] * len(enemy_1_x)
@@ -26,7 +26,7 @@ class Enemy:
             return
 
         for i in range(len(self.enemy_1_x)):
-            self.okno.blit(self.enemy_idle, (self.enemy_1_x[i], self.enemy_1_y[i]))
+            self.okno.blit(self.enemy_1_idle, (self.enemy_1_x[i], self.enemy_1_y[i]))
             self.Recty_1.append(pygame.Rect(self.enemy_1_x[i], self.enemy_1_y[i], 47, 47))
 
         for i, y in enumerate(self.enemy_1_y):
