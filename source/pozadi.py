@@ -19,7 +19,7 @@ class Pozadi:
     def update(self, okno):
         klavesa = pygame.key.get_pressed()
 
-        if klavesa[pygame.K_q]:
+        if self.pozice_hrace_y <= 200:
             self.y_bg_a += self.scroll_speed
             self.y_bg_b += self.scroll_speed
             self.y_bg_c += self.scroll_speed
@@ -30,7 +30,7 @@ class Pozadi:
             for i in range(len(self.enemy_2[1])):
                 self.enemy_2[1][i] += 4
 
-        if klavesa[pygame.K_e] and self.y_bg_c >= 0:
+        if self.pozice_hrace_y >= self.rozliseni_y - 150 and self.y_bg_c >= 0:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
             self.y_bg_c -= self.scroll_speed

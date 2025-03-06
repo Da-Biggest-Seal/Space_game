@@ -47,6 +47,7 @@ enemy_2_idle = pygame.image.load("enemy textury//enemy_2//enemy_2_idle.png")
 hit_point_1 = 0
 
 enemy_1_kill = False
+enemy_2_kill = False
 
 enemy_1_x = []
 enemy_1_y = []
@@ -77,6 +78,11 @@ list_enemy_2 = [enemy_2_x, enemy_2_y]
 enemy_strely_1 = []
 enemy_strely_2 = []
 
+enemy_2_strely_1 = []
+enemy_2_strely_2 = []
+enemy_2_strely_3 = []
+enemy_2_strely_4 = []
+
 #fps
 fps_casovac = pygame.time.Clock()
 fps = 60
@@ -85,6 +91,7 @@ fps = 60
 cerna = (0, 0, 0)
 cervena = (255, 0, 0)
 bila = (255, 255, 255)
+zluta = (252, 223, 3)
 
 #strely
 strely_1 = []
@@ -100,7 +107,7 @@ shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) 
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2)
-shop = Shop(shop, shop_x, shop_y, okno)
+shop = Shop(shop, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y)
 enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
 
 #game loop
@@ -136,7 +143,7 @@ while True:
     if strela_2 != None:
         strely_2.append(strela_2)
 
-    #enemy strely
+    #enemy 1 strely
     enemy_strely_1_alfa = enemy_1.strelba_enemy_1()
     if enemy_strely_1_alfa:
         enemy_strely_1.extend(enemy_strely_1_alfa)
@@ -151,6 +158,39 @@ while True:
 
         for i in enemy_strely_2:
             enemy_strela_2 = i
+
+    except:
+        pass
+
+    #enemy 2 strely
+    enemy_2_strely_1_alfa = enemy_2.strelba_enemy_1()
+    if enemy_2_strely_1_alfa:
+        enemy_2_strely_1.extend(enemy_2_strely_1_alfa)
+
+    enemy_2_strely_2_alfa = enemy_2.strelba_enemy_2()
+    if enemy_2_strely_2_alfa:
+        enemy_2_strely_1.extend(enemy_2_strely_2_alfa)
+
+    enemy_2_strely_3_alfa = enemy_2.strelba_enemy_3()
+    if enemy_2_strely_3_alfa:
+        enemy_2_strely_3.extend(enemy_2_strely_3_alfa)
+
+    enemy_2_strely_4_alfa = enemy_2.strelba_enemy_4()
+    if enemy_2_strely_4_alfa:
+        enemy_2_strely_4.extend(enemy_2_strely_4_alfa)
+
+    try:
+        for i in enemy_2_strely_1:
+            enemy_2_strela_1 = i
+
+        for i in enemy_2_strely_2:
+            enemy_2_strela_2 = i
+
+        for i in enemy_2_strely_3:
+            enemy_2_strela_3 = i
+
+        for i in enemy_2_strely_4:
+            enemy_2_strela_4 = i
 
     except:
         pass
@@ -170,12 +210,33 @@ while True:
     for enemy_strela_1 in enemy_strely_1:
         if enemy_strela_1 != None:
             enemy_strela_1[1] += 10
-            pygame.draw.ellipse(okno, cervena, enemy_strela_1)
+            pygame.draw.ellipse(okno, zluta, enemy_strela_1)
 
     for enemy_strela_2 in enemy_strely_2:
         if enemy_strela_2 != None:
             enemy_strela_2[1] += 10
-            pygame.draw.ellipse(okno, cervena, enemy_strela_2)
+            pygame.draw.ellipse(okno, zluta, enemy_strela_2)
+
+    #vystreleni enemy 2 strel
+    for enemy_2_strela_1 in enemy_2_strely_1:
+        if enemy_2_strela_1 != None:
+            enemy_2_strela_1[1] += 10
+            pygame.draw.ellipse(okno, zluta, enemy_2_strela_1)
+
+    for enemy_2_strela_2 in enemy_2_strely_2:
+        if enemy_2_strela_2 != None:
+            enemy_2_strela_2[1] += 10
+            pygame.draw.ellipse(okno, zluta, enemy_2_strela_2)
+
+    for enemy_2_strela_3 in enemy_2_strely_3:
+        if enemy_2_strela_3 != None:
+            enemy_2_strela_3[1] += 10
+            pygame.draw.ellipse(okno, zluta, enemy_2_strela_3)
+
+    for enemy_2_strela_4 in enemy_2_strely_4:
+        if enemy_2_strela_4 != None:
+            enemy_2_strela_4[1] += 10
+            pygame.draw.ellipse(okno, zluta, enemy_2_strela_4)
 
     #vykresleni enemy
     enemy_1.vykresli_se()
@@ -226,19 +287,93 @@ while True:
                     for i in range(len(list_enemy_1[0])):
                         enemy_1.Recty_1.append(pygame.Rect(list_enemy_1[0][i], list_enemy_1[1][i], 47, 47))
 
+    for strela_1 in strely_1[:]:
+            hit, hit_index = enemy_2.checkni_kolizi_1(strela_1)
+
+            if hit:
+                if strela_1 in strely_1:
+                    strely_1.remove(strela_1)
+
+                if hit_index is not None and hit_index < len(list_enemy_2[0]):
+                    list_enemy_2[0].pop(hit_index)
+                    list_enemy_2[1].pop(hit_index)
+                    enemy_2.hit_pointy.pop(hit_index)
+
+                    enemy_2.enemy_cooldown_1.pop(hit_index)
+                    enemy_2.enemy_cooldown_2.pop(hit_index)
+                    enemy_2.enemy_cooldown_3.pop(hit_index)
+                    enemy_2.enemy_cooldown_4.pop(hit_index)
+                    enemy_2_kill = True
+
+                    enemy_2.Recty_1 = []
+                    for i in range(len(list_enemy_2[0])):
+                        enemy_2.Recty_1.append(pygame.Rect(list_enemy_2[0][i], list_enemy_2[1][i], 65, 65))
+
+    for strela_2 in strely_2[:]:
+
+            hit, hit_index = enemy_2.checkni_kolizi_2(strela_2)
+
+            if hit:
+                if strela_2 in strely_2:
+                    strely_2.remove(strela_2)
+
+                if hit_index is not None and hit_index < len(list_enemy_2[0]):
+                    list_enemy_2[0].pop(hit_index)
+                    list_enemy_2[1].pop(hit_index)
+                    enemy_2.hit_pointy.pop(hit_index)
+
+                    enemy_2.enemy_cooldown_1.pop(hit_index)
+                    enemy_2.enemy_cooldown_2.pop(hit_index)
+                    enemy_2.enemy_cooldown_3.pop(hit_index)
+                    enemy_2.enemy_cooldown_4.pop(hit_index)
+                    enemy_2_kill = True
+
+                    enemy_2.Recty_1 = []
+                    for i in range(len(list_enemy_2[0])):
+                        enemy_2.Recty_1.append(pygame.Rect(list_enemy_2[0][i], list_enemy_2[1][i], 65, 65))
+
     #hity hrace
     enemy_strely_1_trefa = []
     enemy_strely_2_trefa = []
 
+    enemy_2_strely_1_trefa = []
+    enemy_2_strely_2_trefa = []
+    enemy_2_strely_3_trefa = []
+    enemy_2_strely_4_trefa = []
+
     for i, enemy_strela_1_trefa in enumerate(enemy_strely_1):
-        if hrac.checkni_kolizi_1(enemy_strela_1_trefa):
+        if hrac.checkni_kolizi_1_1(enemy_strela_1_trefa):
             enemy_strely_1_trefa.append(i)
             hrac_hity += 1
 
     for i, enemy_strela_2_trefa in enumerate(enemy_strely_2):
-        if hrac.checkni_kolizi_2(enemy_strela_2_trefa):
+        if hrac.checkni_kolizi_1_2(enemy_strela_2_trefa):
             enemy_strely_2_trefa.append(i)
             hrac_hity += 1
+
+
+
+    for i, enemy_2_strela_1_trefa in enumerate(enemy_2_strely_1):
+        if hrac.checkni_kolizi_2_1(enemy_2_strela_1_trefa):
+            enemy_2_strely_1_trefa.append(i)
+            hrac_hity += 2
+
+    for i, enemy_2_strela_2_trefa in enumerate(enemy_2_strely_2):
+        if hrac.checkni_kolizi_2_2(enemy_2_strela_2_trefa):
+            enemy_2_strely_2_trefa.append(i)
+            hrac_hity += 2
+
+    for i, enemy_2_strela_3_trefa in enumerate(enemy_2_strely_3):
+        if hrac.checkni_kolizi_2_3(enemy_2_strela_3_trefa):
+            enemy_2_strely_3_trefa.append(i)
+            hrac_hity += 2
+
+    for i, enemy_2_strela_4_trefa in enumerate(enemy_2_strely_4):
+        if hrac.checkni_kolizi_2_4(enemy_2_strela_4_trefa):
+            enemy_2_strely_4_trefa.append(i)
+            hrac_hity += 2
+
+
 
     for i in sorted(enemy_strely_1_trefa, reverse=True):
         if i < len(enemy_strely_1):
@@ -248,12 +383,34 @@ while True:
         if i < len(enemy_strely_2):
             enemy_strely_2.pop(i)
 
+
+
+    for i in sorted(enemy_2_strely_1_trefa, reverse=True):
+        if i < len(enemy_2_strely_1):
+            enemy_2_strely_1.pop(i)
+
+    for i in sorted(enemy_2_strely_2_trefa, reverse=True):
+        if i < len(enemy_2_strely_2):
+            enemy_2_strely_2.pop(i)
+
+    for i in sorted(enemy_2_strely_3_trefa, reverse=True):
+        if i < len(enemy_2_strely_3):
+            enemy_2_strely_3.pop(i)
+
+    for i in sorted(enemy_2_strely_4_trefa, reverse=True):
+        if i < len(enemy_2_strely_4):
+            enemy_2_strely_4.pop(i)
+
     hp = 100 - ((hrac_hity / hrac_max_hity) * 100)
 
     #pricteni penez za kill
     if enemy_1_kill == True:
         money += 10
         enemy_1_kill = False
+
+    if enemy_2_kill == True:
+        money += 25
+        enemy_2_kill = False
 
     #info hud
     text_ammo = font.render("Počet nábojů: " + str(pocet_ammo), True, bila)

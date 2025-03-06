@@ -68,10 +68,10 @@ class Enemy_2:
     def sniz_enemy_cooldown(self):
         for i in range(len(self.enemy_2_x)):
             if self.enemy_2_y[i] >= -55:
-                self.enemy_cooldown_1[i] -= 1 / 2
-                self.enemy_cooldown_2[i] -= 1 / 2
-                self.enemy_cooldown_3[i] -= 1 / 2
-                self.enemy_cooldown_4[i] -= 1 / 2
+                self.enemy_cooldown_1[i] -= 1
+                self.enemy_cooldown_2[i] -= 1
+                self.enemy_cooldown_3[i] -= 1
+                self.enemy_cooldown_4[i] -= 1
     
     def strelba_enemy_1(self):
         enemy_strely_1 = []

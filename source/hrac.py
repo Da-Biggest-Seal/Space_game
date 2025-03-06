@@ -66,10 +66,26 @@ class Hrac:
     def pocet_naboju(self):
         return self.pocet_ammo
     
-    def checkni_kolizi_1(self, enemy_strela_1):
+    def checkni_kolizi_1_1(self, enemy_strela_1):
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_strela_1)
     
-    def checkni_kolizi_2(self, enemy_strela_2):
+    def checkni_kolizi_1_2(self, enemy_strela_2):
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_strela_2)
+    
+    def checkni_kolizi_2_1(self, enemy_2_strela_1):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_2_strela_1)
+    
+    def checkni_kolizi_2_2(self, enemy_2_strela_2):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_2_strela_2)
+    
+    def checkni_kolizi_2_3(self, enemy_2_strela_3):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_2_strela_3)
+    
+    def checkni_kolizi_2_4(self, enemy_2_strela_4):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_2_strela_4)
