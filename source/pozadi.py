@@ -1,5 +1,5 @@
 import pygame
-pygame.init()
+#pygame.init()
 
 class Pozadi:
     def __init__(self, bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2):

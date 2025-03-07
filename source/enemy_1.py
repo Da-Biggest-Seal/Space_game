@@ -1,5 +1,5 @@
 import pygame
-pygame.init()
+#pygame.init()
 
 class Enemy_1:
     def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_1_idle, Pocet_LVL_1):

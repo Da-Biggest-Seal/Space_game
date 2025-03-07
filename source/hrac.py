@@ -1,5 +1,5 @@
 import pygame
-pygame.init()
+#pygame.init()
 
 class Hrac:
     def __init__(self, pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown):

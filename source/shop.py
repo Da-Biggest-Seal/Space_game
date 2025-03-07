@@ -1,5 +1,5 @@
 import pygame
-pygame.init()
+#pygame.init()
 
 class Shop:
     def __init__(self, shop, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y):
