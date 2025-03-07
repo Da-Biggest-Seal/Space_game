@@ -98,7 +98,7 @@ strely_1 = []
 strely_2 = []
 
 #shop
-shop = pygame.image.load("Shop.png")
+shop_img = pygame.image.load("Shop.png")
 
 shop_x = rozliseni_x - 100
 shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) - 6550]
@@ -107,7 +107,7 @@ shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) 
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2)
-shop = Shop(shop, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y)
+shop = Shop(shop_img, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y)
 enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
 
 #game loop
