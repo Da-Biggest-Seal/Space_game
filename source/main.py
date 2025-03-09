@@ -102,12 +102,13 @@ shop_img = pygame.image.load("Shop.png")
 
 shop_x = rozliseni_x - 100
 shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) - 6550]
+Recty_shopu = []
 
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2)
-shop = Shop(shop_img, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y)
+shop = Shop(shop_img, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y, Recty_shopu)
 enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
 
 #game loop
@@ -123,6 +124,15 @@ while True:
 
     pozadi.pozice_hrace_y = hrac.pozice_hrace_y
     pozadi.update(okno)
+
+    #shop
+    shop.pozice_hrace_y = hrac.pozice_hrace_y
+
+    shop.vykresli_se()
+
+    hrac.shop_kolize(shop_x, shop_y)
+
+    shop.otevri_se(hrac)
 
     #sniz cooldown
     hrac.sniz_cooldown()
@@ -425,9 +435,6 @@ while True:
     okno.blit(text_ammo, text_ammo_rect)
     okno.blit(text_money, text_money_rect)
     okno.blit(text_hp, text_hp_rect)
-
-    #shop
-    shop.vykresli_se()
 
     if hrac_hity >= hrac_max_hity:
         okno.fill(cerna)

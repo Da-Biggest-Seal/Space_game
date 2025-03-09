@@ -13,7 +13,7 @@ class Enemy_1:
         self.Recty_1 = []
         self.direction = [1] * len(enemy_1_x)
         self.enemy_cooldown_1 = [15] * len(enemy_1_x)
-        self.enemy_cooldown_2 = [15] * len(enemy_1_x)
+        self.enemy_cooldown_2 = [15/2] * len(enemy_1_x)
 
         self.hit_pointy = [0] * len(self.enemy_1_x)
         self.zdravicko = 6

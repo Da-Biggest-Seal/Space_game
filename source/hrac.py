@@ -13,6 +13,7 @@ class Hrac:
         self.cooldown_1 = cooldown
         self.cooldown_2 = cooldown
         self.pocet_ammo = 100
+        self.hrac_rect = pygame.Rect(self.pozice_hrace_x, self. pozice_hrace_y, 47, 47)
 
     def pohni_se(self):
         klavesa = pygame.key.get_pressed()
@@ -34,6 +35,8 @@ class Hrac:
         if klavesa[pygame.K_d] and self.pozice_hrace_x < self.rozliseni_x - 30:
             self.movement = True
             self.pozice_hrace_x += 4
+
+        self.hrac_rect = pygame.Rect(self.pozice_hrace_x, self. pozice_hrace_y, 47, 47)
             
         if self.movement:
             self.okno.blit(self.player_moving, (self.pozice_hrace_x, self.pozice_hrace_y))
@@ -66,6 +69,13 @@ class Hrac:
     def pocet_naboju(self):
         return self.pocet_ammo
     
+    def shop_kolize(self, shop_x, shop_y):
+        for i in range(len(shop_y)):
+            if self.hrac_rect.colliderect(pygame.Rect(shop_x, shop_y[i], 100, 100)):
+                return True
+        return False
+
+    #enemy 1 kolize
     def checkni_kolizi_1_1(self, enemy_strela_1):
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_strela_1)
@@ -74,6 +84,7 @@ class Hrac:
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_strela_2)
     
+    #enemy 2 kolize
     def checkni_kolizi_2_1(self, enemy_2_strela_1):
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_2_strela_1)
