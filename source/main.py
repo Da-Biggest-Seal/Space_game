@@ -23,16 +23,16 @@ okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
 pygame.display.set_caption("Space-Game")
 
 #pozadi
-bg_a = pygame.image.load("bg//bg_a.png")
-bg_b = pygame.image.load("bg//bg_b.png")
-bg_c = pygame.image.load("bg//bg_c.png")
+bg_a = pygame.image.load("textury//bg//bg_a.png")
+bg_b = pygame.image.load("textury//bg//bg_b.png")
+bg_c = pygame.image.load("textury//bg//bg_c.png")
 
 #hrac
 pozice_hrace_x = (rozliseni_x / 2) - 15
 pozice_hrace_y = (rozliseni_y / 2) - 15
 
-player_idle = pygame.image.load("player textury//player idle.png")
-player_moving = pygame.image.load("player textury//player moving.png")
+player_idle = pygame.image.load("textury//player textury//player idle.png")
+player_moving = pygame.image.load("textury//player textury//player moving.png")
 
 cooldown = 15
 
@@ -42,9 +42,9 @@ hrac_hity = 0
 hrac_max_hity = 20
 
 #enemaci
-enemy_idle = pygame.image.load("enemy textury//enemy_1//Enemy_1_idle.png")
-enemy_2_idle = pygame.image.load("enemy textury//enemy_2//enemy_2_idle.png")
-enemy_3_idle = pygame.image.load("enemy textury//enemy_3//enemy_3.png")
+enemy_idle = pygame.image.load("textury//enemy textury//enemy_1//Enemy_1_idle.png")
+enemy_2_idle = pygame.image.load("textury//enemy textury//enemy_2//enemy_2_idle.png")
+enemy_3_idle = pygame.image.load("textury//enemy textury//enemy_3//enemy_3.png")
 
 hit_point_1 = 0
 
@@ -120,17 +120,23 @@ strely_1 = []
 strely_2 = []
 
 #shop
-shop_img = pygame.image.load("Shop.png")
+shop_img = pygame.image.load("textury//shop textury//Shop.png")
 
 shop_x = rozliseni_x - 100
 shop_y = [(rozliseni_y / 2) - 2550, (rozliseni_y / 2) - 4550, (rozliseni_y / 2) - 6550]
 Recty_shopu = []
 
+shop_gui_0 = pygame.image.load("textury//shop textury//shop_gui_0.png")
+shop_gui_1 = pygame.image.load("textury//shop textury//shop_gui_1.png")
+shop_gui_2 = pygame.image.load("textury//shop textury//shop_gui_2.png")
+shop_gui_3 = pygame.image.load("textury//shop textury//shop_gui_3.png")
+shop_gui_4 = pygame.image.load("textury//shop textury//shop_gui_4.png")
+
 #aktivace class
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2, list_enemy_3)
-shop = Shop(shop_img, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_y, Recty_shopu)
+shop = Shop(shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, okno, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu)
 enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
 enemy_3 = Enemy_3(enemy_3_x, enemy_3_y, rozliseni_x, rozliseni_y, okno, enemy_3_idle, pocet_LVL_3)
 
@@ -140,9 +146,6 @@ while True:
         if udalost.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-    print(enemy_3_x)
-    print(enemy_3_y)
 
     fps_casovac.tick(fps)
 
@@ -552,32 +555,32 @@ while True:
     for i, enemy_3_strela_1_trefa in enumerate(enemy_3_strely_1):
         if hrac.checkni_kolizi_3_1(enemy_3_strela_1_trefa):
             enemy_3_strely_1_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
     for i, enemy_3_strela_2_trefa in enumerate(enemy_3_strely_2):
         if hrac.checkni_kolizi_3_2(enemy_3_strela_2_trefa):
             enemy_3_strely_2_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
     for i, enemy_3_strela_3_trefa in enumerate(enemy_3_strely_3):
         if hrac.checkni_kolizi_3_3(enemy_3_strela_3_trefa):
             enemy_3_strely_3_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
     for i, enemy_3_strela_4_trefa in enumerate(enemy_3_strely_4):
         if hrac.checkni_kolizi_3_4(enemy_3_strela_4_trefa):
             enemy_3_strely_4_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
     for i, enemy_3_strela_5_trefa in enumerate(enemy_3_strely_5):
         if hrac.checkni_kolizi_3_5(enemy_3_strela_5_trefa):
             enemy_3_strely_5_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
     for i, enemy_3_strela_6_trefa in enumerate(enemy_3_strely_6):
         if hrac.checkni_kolizi_3_6(enemy_3_strela_6_trefa):
             enemy_3_strely_6_trefa.append(i)
-            hrac_hity += 2,5
+            hrac_hity += 5/2
 
 
 
@@ -652,7 +655,7 @@ while True:
     text_ammo = font.render("Počet nábojů: " + str(pocet_ammo), True, bila)
     text_ammo_rect = text_ammo.get_rect(center= (90, (rozliseni_y - 20)))
 
-    text_money = font.render("Finance: " + str(money), True, bila)
+    text_money = font.render("Rudium: " + str(money), True, bila)
     text_money_rect = text_money.get_rect(center= (((rozliseni_x / 4) * 3), (rozliseni_y - 20)))
 
     text_hp = font.render("HP: " + str(hp) + "%", True, bila)

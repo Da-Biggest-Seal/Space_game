@@ -83,7 +83,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_1[i] <= 0:
-                    enemy_strela_1 = pygame.Rect(self.enemy_3_x[i] + 10, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_1 = pygame.Rect(self.enemy_3_x[i] + 21, self.enemy_3_y[i] + 80, 3, 5)
                     self.enemy_cooldown_1[i] = 15
                     enemy_strely_1.append(enemy_strela_1)
 
@@ -96,7 +96,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_2[i] <= 0:
-                    enemy_strela_2 = pygame.Rect(self.enemy_3_x[i] + 15, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_2 = pygame.Rect(self.enemy_3_x[i] + 35, self.enemy_3_y[i] + 81, 3, 5)
                     self.enemy_cooldown_2[i] = 15
                     enemy_strely_2.append(enemy_strela_2)
 
@@ -109,7 +109,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_3[i] <= 0:
-                    enemy_strela_3 = pygame.Rect(self.enemy_3_x[i] + 51, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_3 = pygame.Rect(self.enemy_3_x[i] + 50, self.enemy_3_y[i] + 82, 3, 5)
                     self.enemy_cooldown_3[i] = 15
                     enemy_strely_3.append(enemy_strela_3)
 
@@ -122,7 +122,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_4[i] <= 0:
-                    enemy_strela_4 = pygame.Rect(self.enemy_3_x[i] + 56, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_4 = pygame.Rect(self.enemy_3_x[i] + 60, self.enemy_3_y[i] + 82, 3, 5)
                     self.enemy_cooldown_4[i] = 15
                     enemy_strely_4.append(enemy_strela_4)
 
@@ -135,7 +135,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_5[i] <= 0:
-                    enemy_strela_5 = pygame.Rect(self.enemy_3_x[i] + 56, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_5 = pygame.Rect(self.enemy_3_x[i] + 65, self.enemy_3_y[i] + 81, 3, 5)
                     self.enemy_cooldown_5[i] = 15
                     enemy_strely_5.append(enemy_strela_5)
 
@@ -148,7 +148,7 @@ class Enemy_3:
             if self.enemy_3_y[i] >= -99:
 
                 if self.enemy_cooldown_6[i] <= 0:
-                    enemy_strela_6 = pygame.Rect(self.enemy_3_x[i] + 56, self.enemy_3_y[i] + 24, 3, 5)
+                    enemy_strela_6 = pygame.Rect(self.enemy_3_x[i] + 70, self.enemy_3_y[i] + 80, 3, 5)
                     self.enemy_cooldown_6[i] = 15
                     enemy_strely_6.append(enemy_strela_6)
 

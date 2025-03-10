@@ -32,7 +32,7 @@ class Enemy_2:
             self.Recty_2.append(pygame.Rect(self.enemy_2_x[i], self.enemy_2_y[i], 65, 65))
 
         for i, y in enumerate(self.enemy_2_y):
-            if y >= -47:
+            if y >= -65:
                 self.enemy_2_x[i] += 4 * self.direction[i]
 
                 if self.enemy_2_x[i] >= self.rozliseni_x - 70:
