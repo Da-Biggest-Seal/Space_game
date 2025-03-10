@@ -100,3 +100,28 @@ class Hrac:
     def checkni_kolizi_2_4(self, enemy_2_strela_4):
         player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
         return player_rect.colliderect(enemy_2_strela_4)
+    
+    #enemy 3 kolize
+    def checkni_kolizi_3_1(self, enemy_3_strela_1):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_1)
+    
+    def checkni_kolizi_3_2(self, enemy_3_strela_2):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_2)
+    
+    def checkni_kolizi_3_3(self, enemy_3_strela_3):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_3)
+    
+    def checkni_kolizi_3_4(self, enemy_3_strela_4):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_4)
+    
+    def checkni_kolizi_3_5(self, enemy_3_strela_5):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_5)
+    
+    def checkni_kolizi_3_6(self, enemy_3_strela_6):
+        player_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
+        return player_rect.colliderect(enemy_3_strela_6)

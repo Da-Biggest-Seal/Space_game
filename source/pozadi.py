@@ -2,7 +2,7 @@ import pygame
 #pygame.init()
 
 class Pozadi:
-    def __init__(self, bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2):
+    def __init__(self, bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2, list_enemy_3):
         self.bg_a = bg_a
         self.bg_b = bg_b
         self.bg_c = bg_c
@@ -15,6 +15,7 @@ class Pozadi:
         self.rozliseni_y = rozliseni_y
         self.enemy_1 = list_enemy_1
         self.enemy_2 = list_enemy_2
+        self.enemy_3 = list_enemy_3
 
     def update(self, okno):
         klavesa = pygame.key.get_pressed()
@@ -30,6 +31,9 @@ class Pozadi:
             for i in range(len(self.enemy_2[1])):
                 self.enemy_2[1][i] += 4
 
+            for i in range(len(self.enemy_3[1])):
+                self.enemy_2[1][i] += 4
+
         if self.pozice_hrace_y >= self.rozliseni_y - 150 and self.y_bg_c >= 0:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
@@ -39,6 +43,9 @@ class Pozadi:
                 self.enemy_1[1][i] -=4
 
             for i in range(len(self.enemy_2[1])):
+                self.enemy_2[1][i] -= 4
+
+            for i in range(len(self.enemy_3[1])):
                 self.enemy_2[1][i] -= 4
 
         if self.y_bg_a >= self.rozliseni_y:
