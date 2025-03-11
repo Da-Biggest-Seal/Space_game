@@ -66,17 +66,14 @@ class Pozadi:
         if self.bg_a_rect.colliderect(self.player_rect):
             self.bg_b_rect.y = self.bg_a_rect.y + self.vyska
             self.bg_a_2_rect.y = self.bg_a_rect.y - self.vyska
-            print("dfg")
 
         elif self.bg_b_rect.colliderect(self.player_rect):
             self.bg_a_rect.y = self.bg_b_rect.y - self.vyska
             self.bg_a_2_rect.y = self.bg_b_rect.y + self.vyska
-            print("jhk")
 
         elif self.bg_a_2_rect.colliderect(self.player_rect):
             self.bg_b_rect.y = self.bg_a_2_rect.y - self.vyska
             self.bg_a_rect.y = self.bg_a_2_rect.y + self.vyska
-            print("tzu")
 
         self.y_bg_a = self.bg_a_rect.y
         self.y_bg_b = self.bg_b_rect.y
