@@ -1,7 +1,7 @@
 import pygame
 
 class Shop:
-    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font):
+    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font, money):
         self.shop_png = shop_img
         self.shop_gui_0 = shop_gui_0
         self.shop_gui_1 = shop_gui_1
@@ -23,6 +23,8 @@ class Shop:
         self.font = font
         self.text_timer = 0
         self.text_nakup = None
+
+        self.money = money
 
     def vykresli_se(self, okno):
         self.Recty_shopu.clear()
@@ -57,7 +59,8 @@ class Shop:
             self.button_4_rect = pygame.Rect(519, 315, 134, 138)
 
             if rmb:
-                if self.button_1_rect.collidepoint(mys):
+                if self.button_1_rect.collidepoint(mys) and self.money >= 3:
+                    self.money -= 3
                     self.text_nakup = self.font.render("Zakoupeno: +10 Ammo", True, self.bila)
                     self.text_timer = 30
 
@@ -65,15 +68,17 @@ class Shop:
                     self.text_nakup = self.font.render("Zakoupeno: Repair", True, self.bila)
                     self.text_timer = 30
 
-                elif self.button_3_rect.collidepoint(mys):
+                elif self.button_3_rect.collidepoint(mys) and self.money >= 6:
+                    self.money -= 6
                     self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
                     self.text_timer = 30
 
-                elif self.button_4_rect.collidepoint(mys):
+                elif self.button_4_rect.collidepoint(mys) and self.money >= 6:
+                    self.money -= 6
                     self.text_nakup = self.font.render("Zakoupeno: +0.5 Damage", True, self.bila)
                     self.text_timer = 30
 
-                    
+
 
             if self.button_1_rect.collidepoint(mys):
                 self.stav = 1

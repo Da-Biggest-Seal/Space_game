@@ -136,7 +136,7 @@ shop_gui_4 = pygame.image.load("textury//shop textury//shop_gui_4.png")
 hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
 enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2, list_enemy_3)
-shop = Shop(shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font)
+shop = Shop(shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font, money)
 enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
 enemy_3 = Enemy_3(enemy_3_x, enemy_3_y, rozliseni_x, rozliseni_y, okno, enemy_3_idle, pocet_LVL_3)
 
