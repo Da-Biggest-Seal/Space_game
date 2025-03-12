@@ -1,7 +1,7 @@
 import pygame
 
 class Shop:
-    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font, money):
+    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font):
         self.shop_png = shop_img
         self.shop_gui_0 = shop_gui_0
         self.shop_gui_1 = shop_gui_1
@@ -13,6 +13,7 @@ class Shop:
         self.shop_y = shop_y
 
         self.bila = (255, 255, 255)
+        self.cervena = (255, 0, 0)
 
         self.pozice_hrace_y = pozice_hrace_y
         self.rozliseni_x = rozliseni_x
@@ -23,8 +24,6 @@ class Shop:
         self.font = font
         self.text_timer = 0
         self.text_nakup = None
-
-        self.money = money
 
     def vykresli_se(self, okno):
         self.Recty_shopu.clear()
@@ -41,10 +40,16 @@ class Shop:
                 for i in range(len(self.shop_y)):
                     self.shop_y[i] -= 1
 
-    def otevri_se(self, hrac, okno, udalosti):
+    def otevri_se(self, hrac, okno, udalosti, money, hrac_hity):
         klavesa = pygame.key.get_pressed()
         mys = pygame.mouse.get_pos()
         rmb = False
+        rudium = money
+
+        pozadovane_money_1 = 3
+        pozadovane_money_2 = 1 * hrac_hity
+        pozadovane_money_3 = 6
+        pozadovane_money_4 = 6
 
         if klavesa[pygame.K_TAB] and hrac.shop_kolize(self.shop_x, self.shop_y) == True:
             for udalost in udalosti:
@@ -59,24 +64,58 @@ class Shop:
             self.button_4_rect = pygame.Rect(519, 315, 134, 138)
 
             if rmb:
-                if self.button_1_rect.collidepoint(mys) and self.money >= 3:
-                    self.money -= 3
-                    self.text_nakup = self.font.render("Zakoupeno: +10 Ammo", True, self.bila)
-                    self.text_timer = 30
+                #dost penez
+                if self.button_1_rect.collidepoint(mys):
+                    if pozadovane_money_1 <= rudium:
+                        rudium -= 3
+                        self.text_nakup = self.font.render("Zakoupeno: +10 Ammo", True, self.bila)
+                        self.text_timer = 30
 
+                #malo penez
+                    else:
+                        self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
+                        self.text_timer = 30
+
+                #dost penez
                 elif self.button_2_rect.collidepoint(mys):
-                    self.text_nakup = self.font.render("Zakoupeno: Repair", True, self.bila)
-                    self.text_timer = 30
+                    if pozadovane_money_2 <= rudium and hrac_hity != 0:
+                        rudium -= pozadovane_money_2
+                        self.text_nakup = self.font.render("Zakoupeno: Repair", True, self.bila)
+                        self.text_timer = 30
 
-                elif self.button_3_rect.collidepoint(mys) and self.money >= 6:
-                    self.money -= 6
-                    self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
-                    self.text_timer = 30
+                #full hp
+                    elif hrac_hity == 0:
+                        self.text_nakup = self.font.render("Není potřeba opravit!", True, self.bila)
+                        self.text_timer = 30
 
-                elif self.button_4_rect.collidepoint(mys) and self.money >= 6:
-                    self.money -= 6
-                    self.text_nakup = self.font.render("Zakoupeno: +0.5 Damage", True, self.bila)
-                    self.text_timer = 30
+                #malo penez    
+                    else:
+                        self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
+                        self.text_timer = 30
+
+                #dost penez
+                elif self.button_3_rect.collidepoint(mys):
+                    if pozadovane_money_3 <= rudium:
+                        rudium -= 6
+                        self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
+                        self.text_timer = 30
+
+                #malo penez
+                    else:
+                        self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
+                        self.text_timer = 30
+
+                #dost penez
+                elif self.button_4_rect.collidepoint(mys):
+                    if pozadovane_money_4 <= rudium:
+                        rudium -= 6
+                        self.text_nakup = self.font.render("Zakoupeno: +0.5 Damage", True, self.bila)
+                        self.text_timer = 30
+
+                #malo penez
+                    else:
+                        self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
+                        self.text_timer = 30
 
 
 
@@ -109,9 +148,15 @@ class Shop:
             if self.stav == 4:
                 okno.blit(self.shop_gui_4, (100, 100))
 
+            cena_repair_text = self.font.render(str(pozadovane_money_2), True, self.cervena)
+            cena_repair_text_rect = cena_repair_text.get_rect(center= (532, 218))
+            okno.blit(cena_repair_text, cena_repair_text_rect)
+
             if hasattr(self, 'text_timer') and self.text_timer > 0:
                 self.text_timer -= 1
 
                 if self.text_timer >= 0:
                     text_nakup_rect = self.text_nakup.get_rect(center= (224, 479))
                     okno.blit(self.text_nakup, text_nakup_rect)
+
+            return rudium
