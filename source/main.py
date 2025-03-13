@@ -162,6 +162,11 @@ while True:
     pozadi.pozice_hrace_y = hrac.pozice_hrace_y
     pozadi.update(okno)
 
+    mys = pygame.mouse.get_pos()
+
+    mys_x = mys[0]
+    mys_y = mys[1]
+
     #shop
     shop.pozice_hrace_y = hrac.pozice_hrace_y
 
@@ -186,7 +191,6 @@ while True:
         cooldown = new_cooldown
 
     hrac.base_cooldown = cooldown
-    print(cooldown)
 
     # After updating damage, update it in your enemy instances
     enemy_1.damage = damage
