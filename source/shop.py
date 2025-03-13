@@ -45,6 +45,7 @@ class Shop:
         mys = pygame.mouse.get_pos()
         rmb = False
         rudium = money
+        zakoupeno_cooldown = 0
 
         pozadovane_money_1 = 3
         pozadovane_money_2 = 1 * hrac_hity
@@ -52,6 +53,7 @@ class Shop:
         pozadovane_money_4 = 6
 
         if klavesa[pygame.K_TAB] and hrac.shop_kolize(self.shop_x, self.shop_y) == True:
+
             for udalost in udalosti:
                 if udalost.type == pygame.MOUSEBUTTONUP and udalost.button == 3:
                     rmb = True
@@ -103,9 +105,10 @@ class Shop:
                 #fire rate
                 #dost penez
                 elif self.button_3_rect.collidepoint(mys):
-                    if pozadovane_money_3 <= rudium:
+                    if pozadovane_money_3 <= rudium and zakoupeno_cooldown <= 5:
                         rudium -= 6
-                        cooldown = 12
+                        cooldown -= 3
+                        zakoupeno_cooldown += 1
 
                         self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
                         self.text_timer = 30
@@ -120,7 +123,7 @@ class Shop:
                 elif self.button_4_rect.collidepoint(mys):
                     if pozadovane_money_4 <= rudium:
                         rudium -= 6
-                        damage += 1
+                        damage += 1/2
 
                         self.text_nakup = self.font.render("Zakoupeno: +0.5 Damage", True, self.bila)
                         self.text_timer = 30

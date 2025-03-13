@@ -48,6 +48,7 @@ class Hrac:
     def sniz_cooldown(self):
         self.cooldown_1 -= 1
         self.cooldown_2 -= 1
+        print(self.cooldown_1, self.cooldown_2)
 
     def vystrel_1(self):
         klavesa = pygame.key.get_pressed()

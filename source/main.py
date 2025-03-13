@@ -40,7 +40,8 @@ money = 0
 
 hrac_hity = 0
 hrac_max_hity = 20
-damage = 1
+damage_1 = 1
+damage = damage_1
 
 #pocitani ammo
 pocet_ammo = 100
@@ -177,10 +178,20 @@ while True:
 
         hrac_hity = shop_return[2]
         pocet_ammo = shop_return[1]
-        cooldown = shop_return[3]
-        damage = shop_return[4]
+        new_cooldown = shop_return[3]
+        new_damage = shop_return[4]
 
         hrac.pocet_ammo = pocet_ammo
+        damage = new_damage
+        cooldown = new_cooldown
+
+    hrac.base_cooldown = cooldown
+    print(cooldown)
+
+    # After updating damage, update it in your enemy instances
+    enemy_1.damage = damage
+    enemy_2.damage = damage
+    enemy_3.damage = damage
 
     #sniz cooldown
     hrac.sniz_cooldown()
@@ -493,7 +504,7 @@ while True:
 
                     enemy_3.Recty_3 = []
                     for i in range(len(list_enemy_3[0])):
-                        enemy_2.Recty_3.append(pygame.Rect(list_enemy_3[0][i], list_enemy_3[1][i], 99, 99))
+                        enemy_3.Recty_3.append(pygame.Rect(list_enemy_3[0][i], list_enemy_3[1][i], 99, 99))
 
     for strela_2 in strely_2[:]:
 
