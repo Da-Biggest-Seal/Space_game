@@ -2,7 +2,7 @@ import pygame
 #pygame.init()
 
 class Hrac:
-    def __init__(self, pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown):
+    def __init__(self, pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown, pocet_ammo):
         self.pozice_hrace_x = pozice_hrace_x
         self.pozice_hrace_y = pozice_hrace_y
         self.rozliseni_x = rozliseni_x
@@ -10,10 +10,11 @@ class Hrac:
         self.okno = okno
         self.player_idle = player_idle
         self.player_moving = player_moving
+        self.base_cooldown = cooldown
         self.cooldown_1 = cooldown
         self.cooldown_2 = cooldown
-        self.pocet_ammo = 100
-        self.hrac_rect = pygame.Rect(self.pozice_hrace_x, self. pozice_hrace_y, 47, 47)
+        self.pocet_ammo = pocet_ammo
+        self.hrac_rect = pygame.Rect(self.pozice_hrace_x, self.pozice_hrace_y, 47, 47)
 
     def pohni_se(self):
         klavesa = pygame.key.get_pressed()
@@ -53,7 +54,7 @@ class Hrac:
 
         if klavesa[pygame.K_SPACE] and self.cooldown_1 <= 0 and self.pocet_ammo > 0:
             strela_1 = pygame.Rect(self.pozice_hrace_x + 7, self.pozice_hrace_y, 3, 5)
-            self.cooldown_1 = 15
+            self.cooldown_1 = self.base_cooldown
             self.pocet_ammo -= 1
             return strela_1
         
@@ -62,7 +63,7 @@ class Hrac:
 
         if klavesa[pygame.K_SPACE] and self.cooldown_2 <= 0 and self.pocet_ammo > 0:
             strela_2 = pygame.Rect(self.pozice_hrace_x + 21, self.pozice_hrace_y, 3, 5)
-            self.cooldown_2 = 15
+            self.cooldown_2 = self.base_cooldown
             self.pocet_ammo -= 1
             return strela_2
         

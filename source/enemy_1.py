@@ -2,7 +2,7 @@ import pygame
 #pygame.init()
 
 class Enemy_1:
-    def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_1_idle, Pocet_LVL_1):
+    def __init__(self, enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_1_idle, Pocet_LVL_1, damage):
         self.enemy_1_x = enemy_1_x
         self.enemy_1_y = enemy_1_y
         self.rozliseni_x = rozliseni_x
@@ -14,6 +14,7 @@ class Enemy_1:
         self.direction = [1] * len(enemy_1_x)
         self.enemy_cooldown_1 = [15] * len(enemy_1_x)
         self.enemy_cooldown_2 = [15/2] * len(enemy_1_x)
+        self.damage = damage
 
         self.hit_pointy = [0] * len(self.enemy_1_x)
         self.zdravicko = 6
@@ -45,7 +46,7 @@ class Enemy_1:
 
         for i, rect in enumerate(self.Recty_1):
             if rect.colliderect((strela_1[0], strela_1[1], strela_1[2], strela_1[3])):
-                self.hit_pointy[i] += 1
+                self.hit_pointy[i] += self.damage
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None
@@ -57,7 +58,7 @@ class Enemy_1:
 
         for i, rect in enumerate(self.Recty_1):
             if rect.colliderect((strela_2[0], strela_2[1], strela_2[2], strela_2[3])):
-                self.hit_pointy[i] += 1
+                self.hit_pointy[i] += self.damage
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None

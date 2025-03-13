@@ -40,6 +40,10 @@ money = 0
 
 hrac_hity = 0
 hrac_max_hity = 20
+damage = 1
+
+#pocitani ammo
+pocet_ammo = 100
 
 #enemaci
 enemy_idle = pygame.image.load("textury//enemy textury//enemy_1//Enemy_1_idle.png")
@@ -135,12 +139,12 @@ shop_gui_4 = pygame.image.load("textury//shop textury//shop_gui_4.png")
 vyuzite_money = 0
 
 #aktivace class
-hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown)
-enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1)
+hrac = Hrac(pozice_hrace_x, pozice_hrace_y, rozliseni_x, rozliseni_y, okno, player_idle, player_moving, cooldown, pocet_ammo)
+enemy_1 = Enemy_1(enemy_1_x, enemy_1_y, rozliseni_x, rozliseni_y, okno, enemy_idle, pocet_LVL_1, damage)
 pozadi = Pozadi(bg_a, bg_b, bg_c, pozice_hrace_y, rozliseni_y, list_enemy_1, list_enemy_2, list_enemy_3)
 shop = Shop(shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font)
-enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2)
-enemy_3 = Enemy_3(enemy_3_x, enemy_3_y, rozliseni_x, rozliseni_y, okno, enemy_3_idle, pocet_LVL_3)
+enemy_2 = Enemy_2(enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2, damage)
+enemy_3 = Enemy_3(enemy_3_x, enemy_3_y, rozliseni_x, rozliseni_y, okno, enemy_3_idle, pocet_LVL_3, damage)
 
 #game loop
 while True:
@@ -164,10 +168,19 @@ while True:
 
     hrac.shop_kolize(shop_x, shop_y)
 
-    shop_return = shop.otevri_se(hrac, okno, udalosti, money, hrac_hity)
+    shop_return = shop.otevri_se(hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage)
     if shop_return != None:
-        vyuzite_money = money - shop_return
-        money = shop_return
+        money, pocet_ammo, hrac_hity, cooldown, damage = shop_return
+
+        vyuzite_money = money - shop_return[0]
+        money = shop_return[0]
+
+        hrac_hity = shop_return[2]
+        pocet_ammo = shop_return[1]
+        cooldown = shop_return[3]
+        damage = shop_return[4]
+
+        hrac.pocet_ammo = pocet_ammo
 
     #sniz cooldown
     hrac.sniz_cooldown()
@@ -188,6 +201,8 @@ while True:
     strela_2 = hrac.vystrel_2()
     if strela_2 != None:
         strely_2.append(strela_2)
+
+    pocet_ammo = hrac.pocet_ammo
 
     #enemy 1 strely
     enemy_strely_1_alfa = enemy_1.strelba_enemy_1()
@@ -367,9 +382,6 @@ while True:
     enemy_2.vykresli_se()
     enemy_3.vykresli_se()
 
-    #pocitani ammo
-    pocet_ammo = hrac.pocet_naboju()
-
     #sestreleni enemaka
     for strela_1 in strely_1[:]:
             hit, hit_index = enemy_1.checkni_kolizi_1(strela_1)
@@ -506,7 +518,7 @@ while True:
 
                     enemy_3.Recty_3 = []
                     for i in range(len(list_enemy_3[0])):
-                        enemy_2.Recty_3.append(pygame.Rect(list_enemy_3[0][i], list_enemy_3[1][i], 99, 99))
+                        enemy_3.Recty_3.append(pygame.Rect(list_enemy_3[0][i], list_enemy_3[1][i], 99, 99))
 
     #hity hrace
     enemy_strely_1_trefa = []

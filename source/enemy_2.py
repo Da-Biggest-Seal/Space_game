@@ -2,7 +2,7 @@ import pygame
 #pygame.init()
 
 class Enemy_2:
-    def __init__(self, enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2):
+    def __init__(self, enemy_2_x, enemy_2_y, rozliseni_x, rozliseni_y, okno, enemy_2_idle, pocet_LVL_2, damage):
         self.enemy_2_x = enemy_2_x
         self.enemy_2_y = enemy_2_y
         self.rozliseni_x = rozliseni_x
@@ -16,6 +16,7 @@ class Enemy_2:
         self.enemy_cooldown_2 = [15/2] * len(enemy_2_x)
         self.enemy_cooldown_3 = [15] * len(enemy_2_x)
         self.enemy_cooldown_4 = [15/2] * len(enemy_2_x)
+        self.damage = damage
 
         self.hit_pointy = [0] * len(self.enemy_2_x)
         self.zdravicko = 8
@@ -47,7 +48,7 @@ class Enemy_2:
 
         for i, rect in enumerate(self.Recty_2):
             if rect.colliderect((strela_1[0], strela_1[1], strela_1[2], strela_1[3])):
-                self.hit_pointy[i] += 1
+                self.hit_pointy[i] += self.damage
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None
@@ -59,7 +60,7 @@ class Enemy_2:
 
         for i, rect in enumerate(self.Recty_2):
             if rect.colliderect((strela_2[0], strela_2[1], strela_2[2], strela_2[3])):
-                self.hit_pointy[i] += 1
+                self.hit_pointy[i] += self.damage
                 if self.hit_pointy[i] >= self.zdravicko:
                     return True, i
                 return True, None
