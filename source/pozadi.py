@@ -27,7 +27,21 @@ class Pozadi:
         self.enemy_3 = list_enemy_3
 
     def update(self, okno):
-        if self.pozice_hrace_y <= 200:
+        encounter = False
+
+        if self.enemy_1[1]:
+            if min(self.enemy_1[1]) >= 0:
+                encounter = True
+
+        if self.enemy_2[1]:
+            if min(self.enemy_2[1]) >= 0:
+                encounter = True
+
+        if self.enemy_3[1]:
+            if min(self.enemy_3[1]) >= 0:
+                encounter = True
+
+        if self.pozice_hrace_y <= 200 and encounter == False:
             self.y_bg_a += self.scroll_speed
             self.y_bg_b += self.scroll_speed
             self.y_bg_a_2 += self.scroll_speed
@@ -42,7 +56,7 @@ class Pozadi:
             for i in range(len(self.enemy_3[1])):
                 self.enemy_3[1][i] += 4
 
-        if self.pozice_hrace_y >= self.rozliseni_y - 150 and self.y_bg_c >= 0:
+        if self.pozice_hrace_y >= self.rozliseni_y - 150 and self.y_bg_c >= 0 and encounter == False:
             self.y_bg_a -= self.scroll_speed
             self.y_bg_b -= self.scroll_speed
             self.y_bg_a_2 -= self.scroll_speed

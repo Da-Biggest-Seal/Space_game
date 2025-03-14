@@ -1,7 +1,7 @@
 import pygame
 
 class Shop:
-    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font):
+    def __init__(self, shop_img, shop_gui_0, shop_gui_1, shop_gui_2, shop_gui_3, shop_gui_4, shop_x, shop_y, pozice_hrace_y, rozliseni_x, rozliseni_y, Recty_shopu, font, list_enemy_1, list_enemy_2, list_enemy_3):
         self.shop_png = shop_img
         self.shop_gui_0 = shop_gui_0
         self.shop_gui_1 = shop_gui_1
@@ -11,6 +11,10 @@ class Shop:
 
         self.shop_x = shop_x
         self.shop_y = shop_y
+
+        self.enemy_1 = list_enemy_1
+        self.enemy_2 = list_enemy_2
+        self.enemy_3 = list_enemy_3
 
         self.bila = (255, 255, 255)
         self.cervena = (255, 0, 0)
@@ -24,19 +28,34 @@ class Shop:
         self.font = font
         self.text_timer = 0
         self.text_nakup = None
+        self.zakoupeno_cooldown = 0
 
     def vykresli_se(self, okno):
         self.Recty_shopu.clear()
+
+        encounter = False
+
+        if self.enemy_1[1]:
+            if min(self.enemy_1[1]) >= 0:
+                encounter = True
+
+        if self.enemy_2[1]:
+            if min(self.enemy_2[1]) >= 0:
+                encounter = True
+
+        if self.enemy_3[1]:
+            if min(self.enemy_3[1]) >= 0:
+                encounter = True
 
         for i in range(len(self.shop_y)):
             okno.blit(self.shop_png, (self.shop_x, self.shop_y[i]))
             self.Recty_shopu.append(pygame.Rect(self.shop_x, self.shop_y[i], 100, 100))
 
-            if self.pozice_hrace_y <= 200:
+            if self.pozice_hrace_y <= 200 and encounter == False:
                 for i in range(len(self.shop_y)):
                     self.shop_y[i] += 1
 
-            if self.pozice_hrace_y >= self.rozliseni_y - 150:
+            if self.pozice_hrace_y >= self.rozliseni_y - 150 and encounter == False:
                 for i in range(len(self.shop_y)):
                     self.shop_y[i] -= 1
 
@@ -45,7 +64,6 @@ class Shop:
         mys = pygame.mouse.get_pos()
         rmb = False
         rudium = money
-        zakoupeno_cooldown = 0
 
         pozadovane_money_1 = 3
         pozadovane_money_2 = 1 * hrac_hity
@@ -105,16 +123,21 @@ class Shop:
                 #fire rate
                 #dost penez
                 elif self.button_3_rect.collidepoint(mys):
-                    if pozadovane_money_3 <= rudium and zakoupeno_cooldown <= 5:
+                    if pozadovane_money_3 <= rudium and self.zakoupeno_cooldown < 5:
                         rudium -= 6
                         cooldown -= 3
-                        zakoupeno_cooldown += 1
+                        self.zakoupeno_cooldown += 1
 
                         self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
                         self.text_timer = 30
 
+                #moc upgrade
+                    elif self.zakoupeno_cooldown >= 5:
+                        self.text_nakup = self.font.render("Zakoupeno až moc tohoto upgradu", True, self.bila)
+                        self.text_timer = 30
+
                 #malo penez
-                    else:
+                    elif rudium < pozadovane_money_3:
                         self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
                         self.text_timer = 30
 
@@ -132,8 +155,6 @@ class Shop:
                     else:
                         self.text_nakup = self.font.render("Nedostatek Rudia", True, self.bila)
                         self.text_timer = 30
-
-
 
             if self.button_1_rect.collidepoint(mys):
                 self.stav = 1
