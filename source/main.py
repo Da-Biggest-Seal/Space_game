@@ -17,6 +17,7 @@ rozliseni_y = 600
 
 #font
 font = pygame.font.SysFont("Calibri", 24)
+font_2 = pygame.font.SysFont("Calibri", 72)
 
 #okno
 okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
@@ -70,9 +71,9 @@ enemy_2_y = []
 enemy_3_x = []
 enemy_3_y = []
 
-pocet_LVL_1 = random.randint(4, 8)
-pocet_LVL_2 = random.randint(2, 4)
-pocet_LVL_3 = random.randint(2, 3)
+pocet_LVL_1 = random.randint(6, 8)
+pocet_LVL_2 = random.randint(5, 7)
+pocet_LVL_3 = random.randint(4, 6)
 
 for i in range(pocet_LVL_1):
     pozice_enemy_x = random.randint(0, int(rozliseni_x - 47))
@@ -123,6 +124,7 @@ cerna = (0, 0, 0)
 cervena = (255, 0, 0)
 bila = (255, 255, 255)
 zluta = (252, 223, 3)
+zelena = (0, 255, 0)
 
 #strely
 strely_1 = []
@@ -732,14 +734,14 @@ while True:
 
     if hrac_hity >= hrac_max_hity:
         okno.fill(cerna)
-        kill_text = font.render("You died!", True, bila)
+        kill_text = font_2.render("You died!", True, cervena)
         kill_text_rect = kill_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
         okno.blit(kill_text, kill_text_rect)
 
     if len(list_enemy_3[0]) == 0 and len(list_enemy_3[1]) == 0:
         okno.fill(cerna)
 
-        win_text = font.render("You win!", True, bila)
+        win_text = font_2.render("You win!", True, zelena)
         win_text_rect = win_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
 
         okno.blit(win_text, win_text_rect)

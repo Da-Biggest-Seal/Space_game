@@ -129,7 +129,7 @@ class Shop:
                 elif self.button_3_rect.collidepoint(mys):
                     if pozadovane_money_3 <= rudium and self.zakoupeno_cooldown < 5:
                         rudium -= 6
-                        cooldown -= 3
+                        cooldown -= 1
                         self.zakoupeno_cooldown += 1
 
                         self.text_nakup = self.font.render("Zakoupeno: +1 Fire Rate", True, self.bila)
