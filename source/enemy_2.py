@@ -60,10 +60,11 @@ class Enemy_2:
 
         for i, rect in enumerate(self.Recty_2):
             if rect.colliderect((strela_2[0], strela_2[1], strela_2[2], strela_2[3])):
-                self.hit_pointy[i] += self.damage
-                if self.hit_pointy[i] >= self.zdravicko:
-                    return True, i
-                return True, None
+                if i < len(self.hit_pointy):
+                    self.hit_pointy[i] += self.damage
+                    if self.hit_pointy[i] >= self.zdravicko:
+                        return True, i
+                    return True, None
         return False, None
     
     def sniz_enemy_cooldown(self):

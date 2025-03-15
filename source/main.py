@@ -43,6 +43,10 @@ hrac_max_hity = 20
 damage_1 = 1
 damage = damage_1
 
+movement_toggle = False
+last_frame_key_pressed = False
+mys_stop_movement = False
+
 #pocitani ammo
 pocet_ammo = 100
 
@@ -155,6 +159,8 @@ while True:
             pygame.quit()
             sys.exit()
 
+    klavesa = pygame.key.get_pressed()
+
     fps_casovac.tick(fps)
 
     okno.fill(cerna)
@@ -174,9 +180,9 @@ while True:
 
     hrac.shop_kolize(shop_x, shop_y)
 
-    shop_return = shop.otevri_se(hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage)
+    shop_return = shop.otevri_se(hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage, mys_stop_movement)
     if shop_return != None:
-        money, pocet_ammo, hrac_hity, cooldown, damage = shop_return
+        money, pocet_ammo, hrac_hity, cooldown, damage, mys_stop_movement = shop_return
 
         vyuzite_money = money - shop_return[0]
         money = shop_return[0]
@@ -185,6 +191,7 @@ while True:
         pocet_ammo = shop_return[1]
         new_cooldown = shop_return[3]
         new_damage = shop_return[4]
+        mys_stop_movement = shop_return[5]
 
         hrac.pocet_ammo = pocet_ammo
         damage = new_damage
@@ -200,22 +207,45 @@ while True:
     #sniz cooldown
     hrac.sniz_cooldown()
 
+    #movement toggle
+    if klavesa[pygame.K_k]:
+        if not last_frame_key_pressed:
+            movement_toggle = not movement_toggle
+            last_frame_key_pressed = True
+
+    else:
+        last_frame_key_pressed = False
+
+    #aplikace movement toggle
+    if movement_toggle == False:
+        hrac.pohni_se_klavesnice()
+
+    if movement_toggle == True and mys_stop_movement == False:
+        hrac.pohni_se_mys(mys_x, mys_y)
+
     #sniz enemy cooldown
     enemy_1.sniz_enemy_cooldown()
     enemy_2.sniz_enemy_cooldown()
     enemy_3.sniz_enemy_cooldown()
 
-    #vykresleni hrace
-    hrac.pohni_se()
-
     #strely
-    strela_1 = hrac.vystrel_1()
-    if strela_1 != None:
-        strely_1.append(strela_1)
+    if movement_toggle == False:
+        strela_1 = hrac.vystrel_1()
+        if strela_1 != None:
+            strely_1.append(strela_1)
 
-    strela_2 = hrac.vystrel_2()
-    if strela_2 != None:
-        strely_2.append(strela_2)
+        strela_2 = hrac.vystrel_2()
+        if strela_2 != None:
+            strely_2.append(strela_2)
+
+    if movement_toggle == True:
+        strela_1 = hrac.vystrel_mys_1(udalosti)
+        if strela_1 != None:
+            strely_1.append(strela_1)
+
+        strela_2 = hrac.vystrel_mys_2(udalosti)
+        if strela_2 != None:
+            strely_2.append(strela_2)
 
     pocet_ammo = hrac.pocet_ammo
 
@@ -705,5 +735,13 @@ while True:
         kill_text = font.render("You died!", True, bila)
         kill_text_rect = kill_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
         okno.blit(kill_text, kill_text_rect)
+
+    if len(list_enemy_3[0]) == 0 and len(list_enemy_3[1]) == 0:
+        okno.fill(cerna)
+
+        win_text = font.render("You win!", True, bila)
+        win_text_rect = win_text.get_rect(center= ((rozliseni_x / 2), (rozliseni_y / 2)))
+
+        okno.blit(win_text, win_text_rect)
 
     pygame.display.flip()

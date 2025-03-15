@@ -59,11 +59,12 @@ class Shop:
                 for i in range(len(self.shop_y)):
                     self.shop_y[i] -= 1
 
-    def otevri_se(self, hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage):
+    def otevri_se(self, hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage, mys_stop_movement):
         klavesa = pygame.key.get_pressed()
         mys = pygame.mouse.get_pos()
         rmb = False
         rudium = money
+        mys_stop_movement = False
 
         pozadovane_money_1 = 3
         pozadovane_money_2 = 1 * hrac_hity
@@ -71,6 +72,8 @@ class Shop:
         pozadovane_money_4 = 6
 
         if klavesa[pygame.K_TAB] and hrac.shop_kolize(self.shop_x, self.shop_y) == True:
+
+            mys_stop_movement = True
 
             for udalost in udalosti:
                 if udalost.type == pygame.MOUSEBUTTONUP and udalost.button == 3:
@@ -196,4 +199,7 @@ class Shop:
                     text_nakup_rect = self.text_nakup.get_rect(center= (224, 479))
                     okno.blit(self.text_nakup, text_nakup_rect)
 
-            return rudium, pocet_ammo, hrac_hity, cooldown, damage
+            return rudium, pocet_ammo, hrac_hity, cooldown, damage, mys_stop_movement
+        
+        else:
+            return rudium, pocet_ammo, hrac_hity, cooldown, damage, mys_stop_movement
