@@ -29,6 +29,7 @@ class Shop:
         self.text_timer = 0
         self.text_nakup = None
         self.zakoupeno_cooldown = 0
+        self.zakoupeno_damage = 0
 
     def vykresli_se(self, okno):
         self.Recty_shopu.clear()
@@ -53,11 +54,11 @@ class Shop:
 
             if self.pozice_hrace_y <= 200 and encounter == False:
                 for i in range(len(self.shop_y)):
-                    self.shop_y[i] += 1
+                    self.shop_y[i] += 1 + (1/4)
 
             if self.pozice_hrace_y >= self.rozliseni_y - 150 and encounter == False:
                 for i in range(len(self.shop_y)):
-                    self.shop_y[i] -= 1
+                    self.shop_y[i] -= 1 + (1/4)
 
     def otevri_se(self, hrac, okno, udalosti, money, hrac_hity, pocet_ammo, cooldown, damage, mys_stop_movement):
         klavesa = pygame.key.get_pressed()
@@ -147,11 +148,17 @@ class Shop:
                 #damage
                 #dost penez
                 elif self.button_4_rect.collidepoint(mys):
-                    if pozadovane_money_4 <= rudium:
+                    if pozadovane_money_4 <= rudium and self.zakoupeno_damage < 5:
                         rudium -= 6
-                        damage += 1/2
+                        damage += 1/5
+                        self.zakoupeno_damage += 1
 
-                        self.text_nakup = self.font.render("Zakoupeno: +0.5 Damage", True, self.bila)
+                        self.text_nakup = self.font.render("Zakoupeno: +0.2 Damage", True, self.bila)
+                        self.text_timer = 30
+
+                #moc upgradu
+                    elif self.zakoupeno_damage >= 5:
+                        self.text_nakup = self.font.render("Zakoupeno až moc tohoto upgradu", True, self.bila)
                         self.text_timer = 30
 
                 #malo penez
@@ -196,7 +203,7 @@ class Shop:
                 self.text_timer -= 1
 
                 if self.text_timer >= 0:
-                    text_nakup_rect = self.text_nakup.get_rect(center= (224, 479))
+                    text_nakup_rect = self.text_nakup.get_rect(center= (self.rozliseni_x / 2, 479))
                     okno.blit(self.text_nakup, text_nakup_rect)
 
             return rudium, pocet_ammo, hrac_hity, cooldown, damage, mys_stop_movement
