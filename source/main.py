@@ -21,7 +21,7 @@ font_2 = pygame.font.SysFont("Calibri", 72)
 
 #okno
 okno = pygame.display.set_mode((rozliseni_x, rozliseni_y))
-pygame.display.set_caption("Space-Game")
+pygame.display.set_caption("Rogue")
 
 #pozadi
 bg_a = pygame.image.load("textury//bg//bg_a.png")
