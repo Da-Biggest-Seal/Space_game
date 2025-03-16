@@ -725,7 +725,7 @@ while True:
     text_money = font.render("Rudium: " + str(blit_money), True, bila)
     text_money_rect = text_money.get_rect(center= (((rozliseni_x / 4) * 3), (rozliseni_y - 20)))
 
-    text_hp = font.render("HP: " + str(hp) + "%", True, bila)
+    text_hp = font.render("HP: " + str(int(hp)) + "%", True, bila)
     text_hp_rect = text_hp.get_rect(center= ((rozliseni_x / 2), (rozliseni_y - 20)))
 
     okno.blit(text_ammo, text_ammo_rect)
